@@ -3,11 +3,30 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --ccleaf: #a0a248;
+  --ccspice: #ba603e;
+  --cccarrot: #9b3028;
+  --ccginger: #967c5a;
+  --ccgarlic-light: #6e6458;
+  --ccgarlic-dark: #c2c0ab;
+  --ccdark-tone: #3a3227;
+  --ccivory: #f3f0e7;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-ccleaf: var(--ccleaf);
+  --color-ccspice: var(--ccspice);
+  --color-cccarrot: var(--cccarrot);
+  --color-ccginger: var(--ccginger);
+  --color-ccgarlic-light: var(--ccgarlic-light);
+  --color-ccgarlic-dark: var(--ccgarlic-dark);
+  --color-ccdark-tone: var(--ccdark-tone);
+  --color-ccivory: var(--ccivory);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -20,7 +39,7 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  /* background: var(--background); */
+  /* color: var(--foreground); */
   font-family: Arial, Helvetica, sans-serif;
 }
