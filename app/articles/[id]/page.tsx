@@ -40,7 +40,10 @@ export default async function Page({ params }: PageProps<"/articles/[id]">) {
           {readTime(id)} min read
         </p>
       </header>
-      <Post />
+      {/* scroll-mt clears the fixed navbar; text emoji lets ↩ take the link color */}
+      <div className="prose prose-stone prose-a:text-ccspice [&_[id]]:scroll-mt-32 [&_[data-footnote-ref]]:no-underline [&_[data-footnote-backref]]:no-underline [&_[data-footnote-backref]]:[font-variant-emoji:text] [&_.footnotes]:text-sm">
+        <Post />
+      </div>
     </article>
   );
 }
