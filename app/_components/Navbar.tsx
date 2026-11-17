@@ -12,7 +12,7 @@ export const NavLinks = [
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 inset-x-0 mx-auto px-2.5 py-1 z-50 pt-7">
+    <nav className="fixed top-0 inset-x-0 mx-auto px-2.5 py-1 z-50 pt-7 bg-ccivory">
       <div className="xl:px-10 w-full flex flex-wrap gap-1 justify-between items-center">
         <Link href={"/"} className="flex items-center gap-2">
           <Image
