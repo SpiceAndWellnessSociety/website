@@ -78,9 +78,12 @@ async function Article({
         </nav>
         <h1 className="text-4xl md:text-5xl font-bold">{metadata.title}</h1>
         <p className="mt-3 text-lg text-ccgarlic-light">{metadata.blurb}</p>
-        <p className="mt-4 text-sm">
-          {metadata.author} • <time dateTime={metadata.date}>{date}</time> •{" "}
-          {readTime(id)} min read
+        <p className="mt-4 flex flex-wrap items-center gap-x-2 text-sm">
+          <span>{metadata.author}</span>
+          <span aria-hidden="true">•</span>
+          <time dateTime={metadata.date}>{date}</time>
+          <span aria-hidden="true">•</span>
+          <span>{readTime(id)} min read</span>
         </p>
       </header>
       {/* scroll-mt clears the fixed navbar; text emoji lets ↩ take the link color */}
