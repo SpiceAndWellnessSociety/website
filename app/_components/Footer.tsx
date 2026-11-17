@@ -1,16 +1,5 @@
 import Link from "next/link";
-import { AtSymbolIcon, EnvelopeIcon } from "@heroicons/react/20/solid";
-import { NavLinks } from "./Navbar";
-
-const Socials = [
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/",
-    target: "_blank",
-    Icon: AtSymbolIcon,
-  },
-  { label: "Email", href: "/contact", Icon: EnvelopeIcon },
-];
+import { NavLinks, Socials } from "./Navbar";
 
 export default async function Footer() {
   // Cached so the year is computed at prerender instead of blocking it
@@ -32,7 +21,7 @@ export default async function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              className="underline underline-offset-2 opacity-70 hover:opacity-100 transition-opacity px-1.5"
+              className="underline underline-offset-2 opacity-70 hover:opacity-100 transition-opacity px-1.5 py-2"
             >
               {link.label}
             </Link>
