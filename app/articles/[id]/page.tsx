@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { getArticle, readTime, slugs } from "@/app/_lib/articles";
+import TableOfContents from "@/app/_components/TableOfContents";
+import { getArticle, getHeadings, readTime, slugs } from "@/app/_lib/articles";
 
 export const ensureStatic = "navigation";
 
@@ -19,6 +21,20 @@ export async function generateMetadata({
     title: `${metadata.title} | SAWS`,
     description: metadata.blurb,
     authors: [{ name: metadata.author }],
+    openGraph: {
+      type: "article",
+      title: metadata.title,
+      description: metadata.blurb,
+      url: `/articles/${id}`,
+      siteName: "Spice and Wellness Society",
+      publishedTime: metadata.date,
+      authors: [metadata.author],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: metadata.title,
+      description: metadata.blurb,
+    },
   };
 }
 
@@ -37,14 +53,27 @@ async function Article({
   const { id } = await params;
   if (!slugs.includes(id)) notFound();
   const { default: Post, metadata } = await getArticle(id);
+  const headings = getHeadings(id);
   const date = new Date(metadata.date).toLocaleDateString("en-US", {
     dateStyle: "long",
     timeZone: "UTC",
   });
 
   return (
-    <article>
+    <article className="grid lg:grid-cols-[minmax(0,65ch)_13rem] lg:justify-between lg:gap-x-12">
       <header className="mb-10 pb-6 border-b border-ccgarlic-dark">
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-6 inline-flex max-w-full items-center gap-1.5 rounded-full border border-ccgarlic-dark px-3 py-1 text-sm"
+        >
+          <Link href="/articles" className="text-ccgarlic-light hover:text-ccdark-tone">
+            Articles
+          </Link>
+          <span aria-hidden="true" className="text-ccgarlic-dark">/</span>
+          <Link href={`/articles/${id}`} aria-current="page" className="truncate font-medium hover:text-ccspice">
+            {metadata.title}
+          </Link>
+        </nav>
         <h1 className="text-4xl md:text-5xl font-bold">{metadata.title}</h1>
         <p className="mt-3 text-lg text-ccgarlic-light">{metadata.blurb}</p>
         <p className="mt-4 text-sm">
@@ -52,6 +81,12 @@ async function Article({
           {readTime(id)} min read
         </p>
       </header>
+      {headings.length > 0 && (
+        <aside className="mb-10 lg:mb-0 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:sticky lg:top-32 lg:self-start">
+          <p className="mb-3 text-sm font-semibold">On this page</p>
+          <TableOfContents headings={headings} />
+        </aside>
+      )}
       {/* scroll-mt clears the fixed navbar; text emoji lets ↩ take the link color */}
       <div className="prose prose-stone prose-a:text-ccspice [&_[id]]:scroll-mt-32 [&_[data-footnote-ref]]:no-underline [&_[data-footnote-backref]]:no-underline [&_[data-footnote-backref]]:[font-variant-emoji:text] [&_.footnotes]:text-sm">
         <Post />
