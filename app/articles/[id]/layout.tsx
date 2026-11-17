@@ -1,3 +1,3 @@
 export default function ArticleLayout({ children }: LayoutProps<"/articles/[id]">) {
-  return <main className="flex-1 w-full max-w-prose lg:max-w-5xl mx-auto px-5 pt-32 pb-16">{children}</main>;
+  return <main className="flex-1 w-full max-w-prose mx-auto px-5 pt-32 pb-16">{children}</main>;
 }

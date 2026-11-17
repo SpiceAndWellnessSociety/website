@@ -60,17 +60,21 @@ async function Article({
   });
 
   return (
-    <article className="grid lg:grid-cols-[minmax(0,65ch)_13rem] lg:justify-between lg:gap-x-12">
+    <article className="relative">
       <header className="mb-10 pb-6 border-b border-ccgarlic-dark">
-        <nav
-          aria-label="Breadcrumb"
-          className="mb-6 inline-flex max-w-full items-center gap-1.5 rounded-full border border-ccgarlic-dark px-3 py-1 text-sm"
-        >
-          <Link href="/articles" className="text-ccgarlic-light hover:text-ccdark-tone">
+        <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-sm">
+          <Link
+            href="/articles"
+            className="underline underline-offset-2 opacity-70 hover:opacity-100 transition-opacity"
+          >
             Articles
           </Link>
-          <span aria-hidden="true" className="text-ccgarlic-dark">/</span>
-          <Link href={`/articles/${id}`} aria-current="page" className="truncate font-medium hover:text-ccspice">
+          <span aria-hidden="true" className="opacity-50">/</span>
+          <Link
+            href={`/articles/${id}`}
+            aria-current="page"
+            className="truncate underline underline-offset-2 hover:text-ccspice transition-colors"
+          >
             {metadata.title}
           </Link>
         </nav>
@@ -82,9 +86,12 @@ async function Article({
         </p>
       </header>
       {headings.length > 0 && (
-        <aside className="mb-10 lg:mb-0 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:sticky lg:top-32 lg:self-start">
-          <p className="mb-3 text-sm font-semibold">On this page</p>
-          <TableOfContents headings={headings} />
+        // sits in the right gutter on xl so the article stays centered
+        <aside className="mb-10 xl:mb-0 xl:absolute xl:inset-y-0 xl:left-full xl:ml-12 xl:w-52">
+          <div className="xl:sticky xl:top-32">
+            <p className="mb-3 text-sm font-semibold">On this page</p>
+            <TableOfContents headings={headings} />
+          </div>
         </aside>
       )}
       {/* scroll-mt clears the fixed navbar; text emoji lets ↩ take the link color */}
