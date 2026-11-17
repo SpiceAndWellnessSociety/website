@@ -16,8 +16,12 @@ Website for a UNC student org focused on heart health in the South Asian communi
 
 - Every line is reviewed. Keep code minimal and direct. No speculative abstractions, single-use helpers, or unused code.
 - Comments: sparse. Only where the "why" isn't obvious, one line max. No JSDoc, no comments restating the code.
-- After each step, run `npm run lint`, `npm run typecheck`, and `npm run build`, give a short summary, then stop and ask for approval. Don't commit before approval. Once approved, commit with the conventional commit message the maintainer provides, then move on to the next step.
-- If a step needs a migration applied or env vars set before the build can pass, stop and say so.
+- Each agent works on one issue in its own branch off `main`. Never commit or push to `main` directly.
+- Before opening a PR, run `npm run lint`, `npm run typecheck`, and `npm run build`, and check the change in the running app. All must pass.
+- Commit as you go with concise conventional commit messages (e.g. `feat: add footer`).
+- No attribution anywhere: no `Co-Authored-By` trailers, "Generated with Claude Code" lines, or session links in commits or PRs.
+- When done, open a PR to `main` with a short summary and how it was validated. The maintainer reviews and merges; don't merge yourself.
+- If the work needs a migration applied or env vars set before the build can pass, stop and say so.
 - Don't add dependencies beyond the stack without asking.
 - The repo is public. Never commit secrets. Keep them in `.env.local` and list variable names in `.env.example`.
 - Never run commands against the remote Supabase project (no `db push`). Migrations are applied manually by the maintainer.
@@ -27,6 +31,7 @@ Website for a UNC student org focused on heart health in the South Asian communi
 - Next.js (App Router, TypeScript, ESLint), npm, Tailwind, `@next/mdx`
 - Supabase: Postgres, Auth (Google OAuth), Storage
 - Deps: `@supabase/supabase-js`, `@supabase/ssr`, `zod`, `supabase` CLI as a dev dependency
+- Icons come from Tailwind's Heroicons (`@heroicons/react`)
 - Hosted on Vercel Hobby
 
 ## Architecture rules
