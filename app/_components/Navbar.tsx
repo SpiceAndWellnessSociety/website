@@ -4,6 +4,8 @@ import logo from "@/public/logo.png";
 import MobileMenu from "./MobileMenu";
 
 export const NavLinks = [
+  { label: "Recipes", href: "/cookbook" },
+  { label: "Articles", href: "/articles" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
