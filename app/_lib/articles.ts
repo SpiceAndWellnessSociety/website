@@ -31,3 +31,14 @@ export function readTime(slug: string) {
     .replace(/<[^>]*>|\{[^}]*\}/g, "");
   return Math.max(1, Math.round(text.split(/\s+/).filter(Boolean).length / 200));
 }
+
+export async function getArticles() {
+  const articles = await Promise.all(
+    slugs.map(async (slug) => ({
+      ...(await getArticle(slug)).metadata,
+      slug,
+      readTime: readTime(slug),
+    })),
+  );
+  return articles.sort((a, b) => b.date.localeCompare(a.date));
+}
