@@ -28,26 +28,30 @@ export default async function Page() {
     return (
       <li key={article.slug}>
         {/* the whole row is the link so the date and rail hover states click through too */}
-        <Link href={`/articles/${article.slug}`} className="group flex">
+        <Link href={`/articles/${article.slug}`} className="group flex outline-none">
           <time
             dateTime={article.date}
-            className="hidden md:block w-32 shrink-0 pt-7 pr-6 text-right text-sm text-ccgarlic-light group-hover:text-ccdark-tone transition-colors"
+            className="hidden md:block w-32 shrink-0 pt-7 pr-6 text-right text-sm text-ccgarlic-light group-hover:text-ccdark-tone group-focus-visible:text-ccdark-tone transition-colors"
           >
             {date}
           </time>
           {/* timeline rail with a dot per article */}
           <div className="hidden sm:block relative w-px shrink-0 bg-ccgarlic-dark">
-            <span className="absolute top-8 -left-1.5 size-3 rounded-full bg-ccivory ring-2 ring-ccgarlic-dark group-hover:bg-ccspice group-hover:ring-ccspice transition-colors" />
+            <span className="absolute top-8 -left-1.5 size-3 rounded-full bg-ccivory ring-2 ring-ccgarlic-dark group-hover:bg-ccspice group-hover:ring-ccspice group-focus-visible:bg-ccspice group-focus-visible:ring-ccspice transition-colors" />
           </div>
-          <div className="flex-1 my-2 sm:ml-6 p-5 rounded-md ring-1 ring-transparent group-hover:bg-white/60 group-hover:ring-ccgarlic-dark transition">
-            <h2 className="text-xl md:text-2xl font-bold group-hover:text-ccspice transition-colors">
+          <div className="flex-1 my-2 sm:ml-6 p-5 rounded-md ring-1 ring-transparent group-hover:bg-white/60 group-hover:ring-ccgarlic-dark group-focus-visible:bg-white/60 group-focus-visible:ring-2 group-focus-visible:ring-ccspice transition">
+            <time
+              dateTime={article.date}
+              className="md:hidden block mb-1 text-sm text-ccgarlic-light"
+            >
+              {date}
+            </time>
+            <h2 className="text-xl md:text-2xl font-bold group-hover:text-ccspice group-focus-visible:text-ccspice transition-colors">
               {article.title}
             </h2>
             <p className="mt-2 text-ccgarlic-light">{article.blurb}</p>
             <p className="mt-3 flex flex-wrap items-center gap-x-2 text-sm">
               <span>{article.author}</span>
-              <span className="md:hidden" aria-hidden="true">•</span>
-              <span className="md:hidden">{date}</span>
               <span aria-hidden="true">•</span>
               <span>{article.readTime} min read</span>
             </p>
