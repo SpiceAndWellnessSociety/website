@@ -31,7 +31,7 @@ export default function MobileMenu({ links }: { links: NavLink[] }) {
         aria-expanded={open}
         aria-controls="mobile-menu"
         aria-label={open ? "Close menu" : "Open menu"}
-        className="md:hidden rounded-md w-10 h-10 flex items-center justify-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-current"
+        className="md:hidden cursor-pointer rounded-md w-10 h-10 flex items-center justify-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-current"
       >
         {open ? (
           <XMarkIcon className="h-5 w-5" aria-hidden="true" />
