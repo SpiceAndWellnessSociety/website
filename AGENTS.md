@@ -18,6 +18,7 @@ Website for a UNC student org focused on heart health in the South Asian communi
 - Comments: sparse. Only where the "why" isn't obvious, one line max. No JSDoc, no comments restating the code.
 - Each agent works on one issue in its own branch off `main`. Never commit or push to `main` directly unless the maintainer explicitly says to.
 - Before opening a PR, run `npm run lint`, `npm run typecheck`, and `npm run build`, and check the change in the running app (desktop and mobile widths). All must pass.
+- For UI changes, leave the dev server running when you hand off for review so the maintainer can check the change without restarting it.
 - Commit as you go with concise conventional commit messages (e.g. `feat: add footer`).
 - No attribution anywhere: no `Co-Authored-By` trailers, "Generated with Claude Code" lines, or session links in commits or PRs.
 - When done, open a PR to `main` with a short summary and how it was validated. The maintainer reviews and merges; don't merge yourself.
