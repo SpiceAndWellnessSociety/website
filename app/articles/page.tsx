@@ -47,8 +47,8 @@ export default async function Page() {
           <p className="mt-2 text-ccgarlic-light">{article.blurb}</p>
           <p className="mt-3 flex flex-wrap items-center gap-x-2 text-sm">
             <span>{article.author}</span>
-            <span className="md:hidden">· {date}</span>
-            <span aria-hidden="true">·</span>
+            <span className="md:hidden">• {date}</span>
+            <span aria-hidden="true">•</span>
             <span className="flex items-center gap-1">
               <ClockIcon className="size-4" aria-hidden="true" />
               {article.readTime} min read
