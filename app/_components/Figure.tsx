@@ -6,10 +6,11 @@ export default function Figure({
   ...props
 }: ImageProps & { caption: React.ReactNode }) {
   return (
-    <figure className="my-8">
+    // breaks out of the text column, up to 48rem wide but never past the page padding
+    <figure className="my-8 mx-[calc(50%-min(24rem,50vw-1.25rem))]">
       <Image
         alt={alt}
-        sizes="(min-width: 768px) 65ch, 100vw"
+        sizes="(min-width: 808px) 768px, 100vw"
         className="w-full h-auto rounded-lg"
         {...props}
       />
