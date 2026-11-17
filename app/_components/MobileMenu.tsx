@@ -40,6 +40,14 @@ export default function MobileMenu({ links }: { links: NavLink[] }) {
         )}
       </button>
       {open && (
+        // Absolute to the fixed nav, so it starts below the nav and dims only the page
+        <div
+          aria-hidden="true"
+          onClick={() => setOpen(false)}
+          className="md:hidden absolute inset-x-0 top-full h-dvh bg-black/40"
+        />
+      )}
+      {open && (
         <div
           id="mobile-menu"
           className="md:hidden basis-full flex flex-col items-start gap-2 pt-3"
