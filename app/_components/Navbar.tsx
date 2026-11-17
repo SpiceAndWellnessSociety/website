@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AtSymbolIcon, EnvelopeIcon } from "@heroicons/react/20/solid";
+import { EnvelopeIcon } from "@heroicons/react/20/solid";
 import logo from "@/public/logo.png";
 import MobileMenu from "./MobileMenu";
 
@@ -11,12 +11,29 @@ export const NavLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
+// Heroicons has no brand icons
+function InstagramIcon(props: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      {...props}
+    >
+      <rect x="2.5" y="2.5" width="15" height="15" rx="4.5" />
+      <circle cx="10" cy="10" r="3.5" />
+      <circle cx="14.5" cy="5.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export const Socials = [
   {
     label: "Instagram",
     href: "https://www.instagram.com/",
     target: "_blank",
-    Icon: AtSymbolIcon,
+    Icon: InstagramIcon,
   },
   { label: "Email", href: "/contact", Icon: EnvelopeIcon },
 ];
