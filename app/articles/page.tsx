@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { ArrowRightIcon, ClockIcon } from "@heroicons/react/20/solid";
+import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { getArticles } from "@/app/_lib/articles";
 import Pagination from "@/app/_components/Pagination";
 import SearchBar from "@/app/_components/SearchBar";
@@ -26,41 +26,33 @@ export default async function Page() {
       timeZone: "UTC",
     });
     return (
-      <li key={article.slug} className="group flex">
-        <time
-          dateTime={article.date}
-          className="hidden md:block w-32 shrink-0 pt-7 pr-6 text-right text-sm text-ccgarlic-light group-hover:text-ccdark-tone transition-colors"
-        >
-          {date}
-        </time>
-        {/* timeline rail with a dot per article */}
-        <div className="hidden sm:block relative w-px shrink-0 bg-ccgarlic-dark">
-          <span className="absolute top-8 -left-1.5 size-3 rounded-full bg-ccivory ring-2 ring-ccgarlic-dark group-hover:bg-ccspice group-hover:ring-ccspice transition-colors" />
-        </div>
-        <Link
-          href={`/articles/${article.slug}`}
-          className="flex-1 my-2 sm:ml-6 p-5 rounded-xl ring-1 ring-transparent group-hover:bg-white/60 group-hover:ring-ccgarlic-dark group-hover:shadow-lg shadow-ccdark-tone/5 transition"
-        >
-          <h2 className="text-xl md:text-2xl font-bold group-hover:text-ccspice transition-colors">
-            {article.title}
-          </h2>
-          <p className="mt-2 text-ccgarlic-light">{article.blurb}</p>
-          <p className="mt-3 flex flex-wrap items-center gap-x-2 text-sm">
-            <span>{article.author}</span>
-            <span className="md:hidden">• {date}</span>
-            <span aria-hidden="true">•</span>
-            <span className="flex items-center gap-1">
-              <ClockIcon className="size-4" aria-hidden="true" />
+      <li key={article.slug}>
+        {/* the whole row is the link so the date and rail hover states click through too */}
+        <Link href={`/articles/${article.slug}`} className="group flex">
+          <time
+            dateTime={article.date}
+            className="hidden md:block w-32 shrink-0 pt-7 pr-6 text-right text-sm text-ccgarlic-light group-hover:text-ccdark-tone transition-colors"
+          >
+            {date}
+          </time>
+          {/* timeline rail with a dot per article */}
+          <div className="hidden sm:block relative w-px shrink-0 bg-ccgarlic-dark">
+            <span className="absolute top-8 -left-1.5 size-3 rounded-full bg-ccivory ring-2 ring-ccgarlic-dark group-hover:bg-ccspice group-hover:ring-ccspice transition-colors" />
+          </div>
+          <div className="flex-1 my-2 sm:ml-6 p-5 rounded-md ring-1 ring-transparent group-hover:bg-white/60 group-hover:ring-ccgarlic-dark transition">
+            <h2 className="text-xl md:text-2xl font-bold group-hover:text-ccspice transition-colors">
+              {article.title}
+            </h2>
+            <p className="mt-2 text-ccgarlic-light">{article.blurb}</p>
+            <p className="mt-3 text-sm">
+              {article.author} <span className="md:hidden">• {date} </span>•{" "}
               {article.readTime} min read
+            </p>
+            <span className="mt-4 flex items-center gap-1 text-sm font-bold text-ccspice">
+              Read more
+              <ArrowRightIcon className="size-4" aria-hidden="true" />
             </span>
-          </p>
-          <span className="mt-4 flex items-center gap-1 text-sm font-bold text-ccspice">
-            Read more
-            <ArrowRightIcon
-              className="size-4 group-hover:translate-x-1 transition-transform"
-              aria-hidden="true"
-            />
-          </span>
+          </div>
         </Link>
       </li>
     );
