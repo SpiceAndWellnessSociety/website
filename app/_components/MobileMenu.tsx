@@ -31,7 +31,7 @@ export default function MobileMenu({ links }: { links: NavLink[] }) {
         aria-expanded={open}
         aria-controls="mobile-menu"
         aria-label={open ? "Close menu" : "Open menu"}
-        className="md:hidden rounded-md w-10 h-10 flex items-center justify-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-current"
+        className="md:hidden cursor-pointer rounded-md w-10 h-10 flex items-center justify-center p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-current"
       >
         {open ? (
           <XMarkIcon className="h-5 w-5" aria-hidden="true" />
@@ -40,16 +40,24 @@ export default function MobileMenu({ links }: { links: NavLink[] }) {
         )}
       </button>
       {open && (
+        // Absolute to the fixed nav, so it starts below the nav and dims only the page
+        <div
+          aria-hidden="true"
+          onClick={() => setOpen(false)}
+          className="md:hidden absolute inset-x-0 top-full h-dvh bg-black/40"
+        />
+      )}
+      {open && (
         <div
           id="mobile-menu"
-          className="md:hidden basis-full flex flex-col items-start gap-2 pt-3"
+          className="md:hidden basis-full flex flex-col items-start pt-3"
         >
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="text-end block w-full underline underline-offset-2 opacity-70 hover:opacity-100 transition-opacity px-1.5"
+              className="text-end block w-full underline underline-offset-2 opacity-70 hover:opacity-100 transition-opacity px-1.5 py-2"
             >
               {link.label}
             </Link>
