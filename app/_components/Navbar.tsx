@@ -43,11 +43,15 @@ export default function Navbar() {
     <nav className="fixed top-0 inset-x-0 z-50 pt-7 bg-ccivory">
       <div className="max-w-screen-xl mx-auto px-2.5 xl:px-10">
         <div className="flex flex-wrap gap-1 justify-between items-center pb-1 border-b border-ccgarlic-dark">
-          <Link href={"/"} className="flex items-center gap-2">
+          {/* basis-0 so the subtitle wraps before the icons wrap to a new row */}
+          <Link
+            href={"/"}
+            className="flex items-center gap-2 flex-1 basis-0 min-w-0"
+          >
             <Image
               src={logo}
               alt="Logo"
-              className="w-10 md:w-11 aspect-square rounded-full"
+              className="w-10 md:w-11 aspect-square rounded-full shrink-0"
             />
             <div className="flex flex-col gap-0">
               <p className="font-bold md:text-lg leading-5">SAWS</p>
