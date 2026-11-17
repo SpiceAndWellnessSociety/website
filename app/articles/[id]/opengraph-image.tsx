@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import { getArticle, slugs } from "@/app/_lib/articles";
+import { getArticle, readTime, slugs } from "@/app/_lib/articles";
 
 export const alt = "SAWS article";
 export const size = { width: 1200, height: 630 };
@@ -16,6 +16,10 @@ export function generateStaticParams() {
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { metadata } = await getArticle(id);
+  const date = new Date(metadata.date).toLocaleDateString("en-US", {
+    dateStyle: "long",
+    timeZone: "UTC",
+  });
 
   return new ImageResponse(
     (
@@ -30,7 +34,13 @@ export default async function Image({ params }: { params: Promise<{ id: string }
         </div>
         <div tw="flex flex-col">
           <span tw="text-7xl leading-tight">{metadata.title}</span>
-          <span tw="mt-6 text-3xl text-[#ba603e]">{metadata.author}</span>
+          <div tw="flex mt-6 text-3xl text-[#6e6458]">
+            <span tw="text-[#ba603e]">{metadata.author}</span>
+            <span tw="mx-3">•</span>
+            <span>{date}</span>
+            <span tw="mx-3">•</span>
+            <span>{readTime(id)} min read</span>
+          </div>
         </div>
       </div>
     ),

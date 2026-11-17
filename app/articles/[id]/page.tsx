@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import TableOfContents from "@/app/_components/TableOfContents";
-import { getArticle, getHeadings, readTime, slugs } from "@/app/_lib/articles";
+import { getArticle, readTime, slugs } from "@/app/_lib/articles";
 
 export const ensureStatic = "navigation";
 
@@ -53,14 +52,13 @@ async function Article({
   const { id } = await params;
   if (!slugs.includes(id)) notFound();
   const { default: Post, metadata } = await getArticle(id);
-  const headings = getHeadings(id);
   const date = new Date(metadata.date).toLocaleDateString("en-US", {
     dateStyle: "long",
     timeZone: "UTC",
   });
 
   return (
-    <article className="relative">
+    <article>
       <header className="mb-10 pb-6 border-b border-ccgarlic-dark">
         <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-sm">
           <Link
@@ -85,15 +83,6 @@ async function Article({
           {readTime(id)} min read
         </p>
       </header>
-      {headings.length > 0 && (
-        // sits in the right gutter on xl so the article stays centered
-        <aside className="mb-10 xl:mb-0 xl:absolute xl:inset-y-0 xl:left-full xl:ml-12 xl:w-52">
-          <div className="xl:sticky xl:top-32">
-            <p className="mb-3 text-sm font-semibold">On this page</p>
-            <TableOfContents headings={headings} />
-          </div>
-        </aside>
-      )}
       {/* scroll-mt clears the fixed navbar; text emoji lets ↩ take the link color */}
       <div className="prose prose-stone prose-a:text-ccspice [&_[id]]:scroll-mt-32 [&_[data-footnote-ref]]:no-underline [&_[data-footnote-backref]]:no-underline [&_[data-footnote-backref]]:[font-variant-emoji:text] [&_.footnotes]:text-sm">
         <Post />
