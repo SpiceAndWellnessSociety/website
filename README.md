@@ -1,4 +1,15 @@
+# SAWS (Spice and Wellness Society) Website
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## About This Repo
+
+- We are using Next.js with the App Router, TypeScript, ESLint, Tailwind, and `@next/mdx`. 
+- The database and authentication is powered by Supabase (Postgres, Auth with Google OAuth, and Storage). 
+  - The database is used for admin authentication and storage of just recipes for now. 
+  - Article storage in the database will come later. For now, raw `.mdx` article files are stored in the content directory. 
+The project is hosted on Vercel Hobby.
+- Components and other not-rendered code are stored in directories prefixed with `_` (e.g., `_components`, `_lib`, `_db`, etc.). This is a convention to avoid confusion with the App Router's rendered pages. 
 
 ## Getting Started
 

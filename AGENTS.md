@@ -24,9 +24,9 @@ Website for a UNC student org focused on heart health in the South Asian communi
 
 ## Stack
 
-- Next.js (App Router, TypeScript, ESLint), npm, Tailwind
+- Next.js (App Router, TypeScript, ESLint), npm, Tailwind, `@next/mdx`
 - Supabase: Postgres, Auth (Google OAuth), Storage
-- Deps: `@supabase/supabase-js`, `@supabase/ssr`, `zod`, `react-markdown`; `supabase` CLI as a dev dependency
+- Deps: `@supabase/supabase-js`, `@supabase/ssr`, `zod`, `supabase` CLI as a dev dependency
 - Hosted on Vercel Hobby
 
 ## Architecture rules
