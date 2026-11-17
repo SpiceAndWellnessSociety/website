@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getArticle, readTime, slugs } from "@/app/_lib/articles";
@@ -19,6 +20,20 @@ export async function generateMetadata({
     title: `${metadata.title} | SAWS`,
     description: metadata.blurb,
     authors: [{ name: metadata.author }],
+    openGraph: {
+      type: "article",
+      title: metadata.title,
+      description: metadata.blurb,
+      url: `/articles/${id}`,
+      siteName: "Spice and Wellness Society",
+      publishedTime: metadata.date,
+      authors: [metadata.author],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: metadata.title,
+      description: metadata.blurb,
+    },
   };
 }
 
@@ -45,11 +60,30 @@ async function Article({
   return (
     <article>
       <header className="mb-10 pb-6 border-b border-ccgarlic-dark">
+        <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-sm">
+          <Link
+            href="/articles"
+            className="underline underline-offset-2 opacity-70 hover:opacity-100 transition-opacity"
+          >
+            Articles
+          </Link>
+          <span aria-hidden="true" className="opacity-50">/</span>
+          <Link
+            href={`/articles/${id}`}
+            aria-current="page"
+            className="truncate underline underline-offset-2 hover:text-ccspice transition-colors"
+          >
+            {metadata.title}
+          </Link>
+        </nav>
         <h1 className="text-4xl md:text-5xl font-bold">{metadata.title}</h1>
         <p className="mt-3 text-lg text-ccgarlic-light">{metadata.blurb}</p>
-        <p className="mt-4 text-sm">
-          {metadata.author} · <time dateTime={metadata.date}>{date}</time> ·{" "}
-          {readTime(id)} min read
+        <p className="mt-4 flex flex-wrap items-center gap-x-2 text-sm">
+          <span>{metadata.author}</span>
+          <span aria-hidden="true">•</span>
+          <time dateTime={metadata.date}>{date}</time>
+          <span aria-hidden="true">•</span>
+          <span>{readTime(id)} min read</span>
         </p>
       </header>
       {/* scroll-mt clears the fixed navbar; text emoji lets ↩ take the link color */}
