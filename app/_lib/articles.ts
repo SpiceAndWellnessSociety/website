@@ -33,6 +33,17 @@ export function readTime(slug: string) {
   return Math.max(1, Math.round(text.split(/\s+/).filter(Boolean).length / 200));
 }
 
+export async function getArticles() {
+  const articles = await Promise.all(
+    slugs.map(async (slug) => ({
+      ...(await getArticle(slug)).metadata,
+      slug,
+      readTime: readTime(slug),
+    })),
+  );
+  return articles.sort((a, b) => b.date.localeCompare(a.date));
+}
+
 export function getHeadings(slug: string) {
   const source = fs.readFileSync(path.join(dir, `${slug}.mdx`), "utf-8");
   return [...source.matchAll(/^(##{1,2}) (.+)$/gm)].map(([, hashes, title]) => ({
