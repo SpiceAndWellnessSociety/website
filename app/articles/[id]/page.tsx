@@ -81,7 +81,7 @@ async function Article({
         <h1 className="text-4xl md:text-5xl font-bold">{metadata.title}</h1>
         <p className="mt-3 text-lg text-ccgarlic-light">{metadata.blurb}</p>
         <p className="mt-4 text-sm">
-          {metadata.author} · <time dateTime={metadata.date}>{date}</time> ·{" "}
+          {metadata.author} • <time dateTime={metadata.date}>{date}</time> •{" "}
           {readTime(id)} min read
         </p>
       </header>
