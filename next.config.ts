@@ -19,7 +19,14 @@ const nextConfig: NextConfig = {
   },
 };
 const withMDX = createMDX({
-  // Add markdown plugins here, as desired
+  options: {
+    remarkPlugins: ["remark-gfm"],
+    // show the footnotes heading (hidden with sr-only by default)
+    remarkRehypeOptions: {
+      footnoteLabel: "References",
+      footnoteLabelProperties: {},
+    },
+  },
 });
 // Merge MDX config with Next.js config
 export default withMDX(nextConfig);

@@ -1,16 +1,61 @@
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const { default: Post } = await import(`@/content/${id}.mdx`);
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { getArticle, readTime, slugs } from "@/app/_lib/articles";
 
-  return <Post />;
-}
+export const ensureStatic = "navigation";
 
 export function generateStaticParams() {
-  return [{ id: "welcome" }, { id: "about" }];
+  return slugs.map((id) => ({ id }));
 }
 
-export const dynamicParams = false;
+export async function generateMetadata({
+  params,
+}: PageProps<"/articles/[id]">): Promise<Metadata> {
+  const { id } = await params;
+  if (!slugs.includes(id)) notFound();
+  const { metadata } = await getArticle(id);
+  return {
+    title: `${metadata.title} | SAWS`,
+    description: metadata.blurb,
+    authors: [{ name: metadata.author }],
+  };
+}
+
+// params is read inside Suspense so the shared App Shell stays URL-independent
+export default function Page({ params }: PageProps<"/articles/[id]">) {
+  return (
+    <Suspense>
+      <Article params={params} />
+    </Suspense>
+  );
+}
+
+async function Article({
+  params,
+}: Pick<PageProps<"/articles/[id]">, "params">) {
+  const { id } = await params;
+  if (!slugs.includes(id)) notFound();
+  const { default: Post, metadata } = await getArticle(id);
+  const date = new Date(metadata.date).toLocaleDateString("en-US", {
+    dateStyle: "long",
+    timeZone: "UTC",
+  });
+
+  return (
+    <article>
+      <header className="mb-10 pb-6 border-b border-ccgarlic-dark">
+        <h1 className="text-4xl md:text-5xl font-bold">{metadata.title}</h1>
+        <p className="mt-3 text-lg text-ccgarlic-light">{metadata.blurb}</p>
+        <p className="mt-4 text-sm">
+          {metadata.author} · <time dateTime={metadata.date}>{date}</time> ·{" "}
+          {readTime(id)} min read
+        </p>
+      </header>
+      {/* scroll-mt clears the fixed navbar; text emoji lets ↩ take the link color */}
+      <div className="prose prose-stone prose-a:text-ccspice [&_[id]]:scroll-mt-32 [&_[data-footnote-ref]]:no-underline [&_[data-footnote-backref]]:no-underline [&_[data-footnote-backref]]:[font-variant-emoji:text] [&_.footnotes]:text-sm">
+        <Post />
+      </div>
+    </article>
+  );
+}
