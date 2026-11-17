@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getArticle, readTime, slugs } from "@/app/_lib/articles";
 
 export const ensureStatic = "navigation";
@@ -21,7 +22,18 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: PageProps<"/articles/[id]">) {
+// params is read inside Suspense so the shared App Shell stays URL-independent
+export default function Page({ params }: PageProps<"/articles/[id]">) {
+  return (
+    <Suspense>
+      <Article params={params} />
+    </Suspense>
+  );
+}
+
+async function Article({
+  params,
+}: Pick<PageProps<"/articles/[id]">, "params">) {
   const { id } = await params;
   if (!slugs.includes(id)) notFound();
   const { default: Post, metadata } = await getArticle(id);
