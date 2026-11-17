@@ -76,12 +76,13 @@ async function Article({
             {metadata.title}
           </Link>
         </nav>
+        <time dateTime={metadata.date} className="block mb-1 text-sm text-ccgarlic-light">
+          {date}
+        </time>
         <h1 className="text-4xl md:text-5xl font-bold">{metadata.title}</h1>
         <p className="mt-3 text-lg text-ccgarlic-light">{metadata.blurb}</p>
         <p className="mt-4 flex flex-wrap items-center gap-x-2 text-sm">
           <span>{metadata.author}</span>
-          <span aria-hidden="true">•</span>
-          <time dateTime={metadata.date}>{date}</time>
           <span aria-hidden="true">•</span>
           <span>{readTime(id)} min read</span>
         </p>
