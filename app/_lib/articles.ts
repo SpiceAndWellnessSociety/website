@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { MDXContent } from "mdx/types";
+import { slugify } from "./util";
 
 export type ArticleMeta = {
   title: string;
@@ -30,4 +31,13 @@ export function readTime(slug: string) {
     .replace(/^(import|export) [\s\S]*?\n\s*\n/gm, "")
     .replace(/<[^>]*>|\{[^}]*\}/g, "");
   return Math.max(1, Math.round(text.split(/\s+/).filter(Boolean).length / 200));
+}
+
+export function getHeadings(slug: string) {
+  const source = fs.readFileSync(path.join(dir, `${slug}.mdx`), "utf-8");
+  return [...source.matchAll(/^(##{1,2}) (.+)$/gm)].map(([, hashes, title]) => ({
+    level: hashes.length,
+    title,
+    id: slugify(title),
+  }));
 }
