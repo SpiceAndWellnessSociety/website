@@ -33,7 +33,7 @@ export default function Partnerships() {
       aria-labelledby="partners-title"
       className="w-full max-w-screen-xl mx-auto py-12 flex flex-col items-center gap-8"
     >
-      <h2 id="partners-title" className="font-display font-bold text-4xl md:text-5xl">
+      <h2 id="partners-title" className="text-3xl md:text-4xl font-bold">
         Partnerships
       </h2>
       <div className="hidden md:flex motion-reduce:flex flex-wrap justify-center items-center gap-x-16 gap-y-6">

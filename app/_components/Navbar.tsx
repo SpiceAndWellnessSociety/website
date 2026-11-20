@@ -40,8 +40,8 @@ const instagram = Socials[0];
 export default function Navbar() {
   return (
     <nav className="fixed top-0 inset-x-0 z-50 pt-7 bg-ccivory">
-      <div className="max-w-screen-xl mx-auto px-2.5 xl:px-10 pb-1">
-        <div className="flex flex-wrap gap-1 justify-between items-center pb-2 border-b border-ccgarlic-dark">
+      <div className="max-w-screen-xl mx-auto px-2.5 xl:px-10">
+        <div className="flex flex-wrap gap-1 justify-between items-center pb-2">
           {/* basis-0 so the subtitle wraps before the icons wrap to a new row */}
           <Link
             href={"/"}
@@ -82,6 +82,7 @@ export default function Navbar() {
           </div>
           <MobileMenu links={NavLinks} />
         </div>
+        <div aria-hidden="true" className="h-4 bg-vine" />
       </div>
     </nav>
   );

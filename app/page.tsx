@@ -1,9 +1,5 @@
 import Link from "next/link";
-import { Cormorant_Garamond } from "next/font/google";
-import {
-  ArrowRightIcon,
-  ArrowUpRightIcon,
-} from "@heroicons/react/20/solid";
+import { ArrowRightIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import {
   BookOpenIcon,
   FireIcon,
@@ -12,35 +8,23 @@ import {
   MegaphoneIcon,
   NewspaperIcon,
   SparklesIcon,
-  UserGroupIcon,
 } from "@heroicons/react/24/outline";
 import Partnerships from "./_components/Partnerships";
+import Team from "./_components/Team";
 import { Socials } from "./_components/Navbar";
-import {
-  Divider,
-  HennaPattern,
-  Mandala,
-  OrnamentDefs,
-  FloralSpray,
-  Paisley,
-  Toran,
-} from "./_components/Ornaments";
-
-const display = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["600", "700"],
-});
+import { Mandala } from "./_components/Ornaments";
 
 const instagram = Socials[0];
 
 const focus =
   "outline-none focus-visible:ring-2 focus-visible:ring-cccarrot focus-visible:ring-offset-4 focus-visible:ring-offset-ccivory";
+const button = `inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 font-semibold transition-colors ${focus}`;
+const link = `inline-flex items-center gap-1 font-semibold text-cccarrot underline underline-offset-4 hover:no-underline rounded-sm ${focus}`;
 const source =
   "underline underline-offset-2 text-ccivory hover:no-underline rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ccivory";
-const button =`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition-colors ${focus}`;
+const h2 = "text-3xl md:text-4xl font-bold text-balance";
 
-const work = [
+const steps = [
   {
     title: "Education & awareness",
     body: "Campaigns that explain why heart disease hits South Asian families harder, and what helps.",
@@ -75,157 +59,113 @@ const work = [
 
 const paths = [
   {
-    label: "Recipes",
     title: "Cook with us",
     body: "Heart-healthy South Asian recipes from our cooking demos.",
+    cta: "Browse recipes",
     href: "/cookbook",
     Icon: FireIcon,
   },
   {
-    label: "Articles",
     title: "Read & learn",
     body: "Research-backed pieces on diet, culture, and heart health.",
+    cta: "Read articles",
     href: "/articles",
     Icon: NewspaperIcon,
   },
   {
-    label: "About",
-    title: "Meet the club",
-    body: "Who we are, where these traditions come from, and how to join.",
-    href: "/articles/about-us",
-    Icon: UserGroupIcon,
-  },
-  {
-    label: "Instagram",
-    title: "Follow along",
+    title: "Stay in the loop",
     body: "Event announcements, screening dates, and behind-the-scenes cooking.",
+    cta: "Check out our Instagram",
     href: instagram.href,
     Icon: instagram.Icon,
     external: true,
   },
 ];
 
-function Heading({
-  id,
-  eyebrow,
-  children,
-}: {
-  id: string;
-  eyebrow: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col items-center text-center gap-3">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cccarrot">
-        {eyebrow}
-      </p>
-      <h2
-        id={id}
-        className="font-display font-bold text-4xl md:text-5xl leading-tight text-balance"
-      >
-        {children}
-      </h2>
-      <Divider className="w-56 md:w-64 text-ccspice" />
-    </div>
-  );
-}
-
 export default function Home() {
   return (
-    <main
-      id="main"
-      tabIndex={-1}
-      className={`${display.variable} flex-1 w-full overflow-x-clip outline-none`}
-    >
+    <main id="main" tabIndex={-1} className="flex-1 w-full overflow-x-clip outline-none">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-full focus:bg-ccdark-tone focus:px-5 focus:py-2 focus:font-semibold focus:text-ccivory"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-md focus:bg-ccdark-tone focus:px-5 focus:py-2 focus:font-semibold focus:text-ccivory"
       >
         Skip to content
       </a>
-      <OrnamentDefs />
+
       <section
         aria-labelledby="hero-title"
-        className="relative isolate overflow-hidden pt-28 md:pt-40 pb-20 md:pb-32"
+        className="max-w-screen-xl mx-auto px-5 xl:px-10 pt-32 md:pt-40 pb-20 md:pb-28 grid md:grid-cols-[1.3fr_1fr] items-center gap-10"
       >
-        <HennaPattern className="absolute inset-0 -z-10 size-full opacity-35" />
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_30%_45%,var(--ccivory)_45%,transparent_85%)]" />
-        <div className="max-w-screen-xl mx-auto px-5 xl:px-10 grid md:grid-cols-[1.2fr_1fr] lg:grid-cols-[1.15fr_1fr] items-center gap-6 md:gap-8 lg:gap-12">
-          <div className="relative flex flex-col items-start gap-5 md:gap-6">
-            <p className="flex items-center gap-3 -mx-3 px-3 py-1 rounded-full bg-ccivory text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-cccarrot">
-              <span aria-hidden="true" className="h-px w-8 bg-current" />
-              UNC Chapel Hill student organization
-            </p>
-            <h1
-              id="hero-title"
-              className="font-display font-bold text-5xl sm:text-6xl md:text-[3.5rem] lg:text-7xl leading-[1.05]"
+        <div className="flex flex-col items-start gap-6">
+          <h1 id="hero-title" className="text-4xl md:text-5xl font-bold leading-tight">
+            <span className="block">Heart health,</span> rooted in tradition.
+          </h1>
+          <p className="max-w-xl text-lg md:text-xl leading-relaxed text-ccgarlic-light">
+            The Spice and Wellness Society is a UNC Chapel Hill student
+            organization committed to cardiovascular health in the South Asian
+            community, through education, free heart screenings, and the spices
+            and recipes we grew up with.
+          </p>
+          <div className="grid w-full lg:flex lg:w-auto gap-3">
+            <Link href="/cookbook" className={`${button} bg-cccarrot text-ccivory hover:bg-ccdark-tone`}>
+              Explore recipes
+              <ArrowRightIcon className="size-4" aria-hidden="true" />
+            </Link>
+            <Link
+              href={instagram.href}
+              target={instagram.target}
+              rel="noopener noreferrer"
+              className={`${button} border border-ccdark-tone/40 hover:border-ccdark-tone hover:bg-ccdark-tone hover:text-ccivory`}
             >
-              <span className="block">Heart health,</span>
-              <span className="whitespace-nowrap">rooted in</span>{" "}
-              <span className="whitespace-nowrap">
-                <span className="text-cccarrot italic">tradition</span>.
-              </span>
-            </h1>
-            <p className="max-w-xl text-lg md:text-xl leading-relaxed text-ccgarlic-light">
-              The Spice and Wellness Society is committed to cardiovascular
-              health in the South Asian community, through education, free
-              heart screenings, and the spices and recipes we grew up with.
-            </p>
-            <div className="grid w-full sm:flex sm:w-auto sm:flex-wrap gap-3 pt-2">
-              <Link
-                href="/cookbook"
-                className={`${button} bg-cccarrot text-ccivory hover:bg-ccdark-tone`}
-              >
-                Explore recipes
-                <ArrowRightIcon className="size-4" aria-hidden="true" />
-              </Link>
-              <Link
-                href="/articles"
-                className={`${button} border border-ccdark-tone/40 hover:border-ccdark-tone hover:bg-ccdark-tone hover:text-ccivory`}
-              >
-                Read articles
-              </Link>
-              <Link
-                href={instagram.href}
-                target={instagram.target}
-                rel="noopener noreferrer"
-                className={`${button} border border-cccarrot/40 text-cccarrot hover:border-cccarrot hover:bg-cccarrot hover:text-ccivory`}
-              >
-                <instagram.Icon className="size-5" aria-hidden="true" />
-                Follow on Instagram
-                <span className="sr-only">(opens in a new tab)</span>
-              </Link>
-            </div>
-          </div>
-          <div className="relative -order-1 md:order-none w-full max-w-36 sm:max-w-56 md:max-w-lg mx-auto md:mr-0 aspect-square">
-            <Mandala className="size-full text-ccspice motion-safe:animate-[spin_240s_linear_infinite]" />
-            <FloralSpray className="absolute -left-[16%] -bottom-[10%] w-[58%] text-ccginger" />
-            <FloralSpray className="absolute -right-[10%] -top-[8%] w-[42%] rotate-180 text-ccginger" />
-            <Paisley className="absolute right-0 bottom-0 w-[14%] rotate-12 text-cccarrot/70" />
+              <instagram.Icon className="size-5" aria-hidden="true" />
+              Check out our Instagram
+              <span className="sr-only">(opens in a new tab)</span>
+            </Link>
           </div>
         </div>
-        <Toran className="absolute bottom-0 inset-x-0 h-8 w-full scale-y-[-1]" />
+        <Mandala className="turn-on-scroll -order-1 md:order-none w-40 md:w-full max-w-md mx-auto text-ccspice" />
       </section>
 
       <section
-        aria-labelledby="why-title"
-        className="relative isolate overflow-hidden bg-ccdark-tone text-ccivory py-16 md:py-20"
+        id="about"
+        aria-labelledby="about-title"
+        className="scroll-mt-24 max-w-screen-xl mx-auto px-5 xl:px-10 pb-20 md:pb-28 grid lg:grid-cols-2 gap-6 lg:gap-16"
       >
-        <HennaPattern className="absolute inset-0 -z-10 size-full opacity-25" />
-        <Toran className="absolute top-0 inset-x-0 h-8 w-full" />
-        <Toran className="absolute bottom-0 inset-x-0 h-8 w-full scale-y-[-1]" />
-        <div className="max-w-screen-lg mx-auto px-5 flex flex-col md:flex-row items-center gap-10 md:gap-14">
-          <div className="relative shrink-0 size-44 sm:size-52 md:size-60 grid place-items-center">
+        <h2 id="about-title" className={h2}>
+          A student-led home for South Asian wellness at UNC
+        </h2>
+        <div className="flex flex-col items-start gap-4 text-lg leading-relaxed text-ccgarlic-light">
+          <p>
+            We dive into health issues common in the South Asian community,
+            like heart health and diabetes, and help combat them through
+            cultural practices and daily habits.
+          </p>
+          <p>
+            Spices like turmeric, cumin, and ginger have been used for
+            centuries for their medicinal properties. We teach members to cook
+            healthy dishes with them, debunk common food myths, explore
+            practices like Ayurveda, yoga, and meditation, and promote mental
+            health along the way.
+          </p>
+          <Link href="/articles/about-us" className={link}>
+            Read more about the club
+            <ArrowRightIcon className="size-4" aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
+
+      <section aria-labelledby="why-title" className="relative bg-ccdark-tone text-ccivory py-20 md:py-28">
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-full h-[22px] bg-toran -scale-y-100" />
+        <div aria-hidden="true" className="absolute inset-x-0 top-full h-[22px] bg-toran" />
+        <div className="reveal max-w-screen-lg mx-auto px-5 flex flex-col md:flex-row items-center gap-10 md:gap-14">
+          <div className="relative shrink-0 size-48 md:size-60 grid place-items-center">
             <Mandala className="absolute inset-0 size-full text-ccginger" />
-            <p className="relative grid place-items-center size-24 md:size-28 rounded-full bg-ccdark-tone font-display font-bold text-5xl md:text-6xl">
+            <p className="relative grid place-items-center size-24 rounded-full bg-ccdark-tone text-5xl font-bold tabular-nums [text-box:trim-both_cap_alphabetic]">
               4&times;
             </p>
           </div>
           <div className="flex flex-col gap-4 text-center md:text-left">
-            <h2
-              id="why-title"
-              className="font-display font-bold text-3xl md:text-4xl leading-tight text-balance"
-            >
+            <h2 id="why-title" className={h2}>
               South Asians have four times the risk of heart disease of the
               general population.
             </h2>
@@ -272,81 +212,80 @@ export default function Home() {
 
       <section
         aria-labelledby="work-title"
-        className="max-w-screen-xl mx-auto px-5 xl:px-10 py-20 md:py-28 flex flex-col gap-12"
+        style={{ timelineScope: steps.map((_, i) => `--step-${i}`).join(",") }}
+        className="max-w-screen-xl mx-auto px-5 xl:px-10 pt-28 md:pt-36 pb-12 flex flex-col md:grid md:grid-cols-2 gap-x-16"
       >
-        <Heading id="work-title" eyebrow="What we do">
-          Spice, science, and community
-        </Heading>
-        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {work.map(({ title, body, Icon }) => (
+        <h2 id="work-title" className={`${h2} md:col-span-2`}>
+          What we do
+        </h2>
+        {/* pinned visual; each step's view timeline brings its icon forward */}
+        <div className="sticky top-24 md:top-0 md:self-start z-10 md:h-screen flex items-center justify-center py-4 bg-ccivory md:bg-transparent">
+          <div className="relative size-32 md:size-96 grid place-items-center">
+            <Mandala className="absolute inset-0 size-full text-ccspice/50" />
+            <span className="relative grid place-items-center size-14 md:size-32 rounded-full bg-ccivory text-cccarrot">
+              <HeartIcon className="step-fallback size-7 md:size-14" aria-hidden="true" />
+              {steps.map(({ title, Icon }, i) => (
+                <Icon
+                  key={title}
+                  aria-hidden="true"
+                  style={{ animationTimeline: `--step-${i}` }}
+                  className="step-layer absolute size-7 md:size-14"
+                />
+              ))}
+            </span>
+          </div>
+        </div>
+        <ol className="flex flex-col md:py-[25vh]">
+          {steps.map(({ title, body }, i) => (
             <li
               key={title}
-              className="relative flex flex-col gap-3 sm:gap-4 rounded-2xl border border-ccgarlic-dark bg-white/50 p-5 md:p-7"
+              style={{ viewTimelineName: `--step-${i}` }}
+              className="step-text min-h-[40vh] md:min-h-[60vh] flex flex-col justify-center gap-3"
             >
-              <Paisley className="absolute top-4 right-4 w-6 rotate-12 text-ccginger/60" />
-              <div className="flex items-center gap-4 sm:flex-col sm:items-start">
-                <span className="relative shrink-0 grid place-items-center size-14 sm:size-16 text-cccarrot">
-                  <Mandala className="absolute inset-0 size-full text-ccspice/60" />
-                  <span className="relative grid place-items-center size-8 rounded-full bg-ccivory">
-                    <Icon className="size-5" aria-hidden="true" />
-                  </span>
-                </span>
-                <h3 className="font-display font-bold text-2xl leading-tight pr-6 sm:pr-0">
-                  {title}
-                </h3>
-              </div>
-              <p className="text-ccgarlic-light leading-relaxed">{body}</p>
+              <span className="text-sm font-semibold tabular-nums text-ccspice">
+                {String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
+              </span>
+              <h3 className="text-xl md:text-2xl font-bold">{title}</h3>
+              <p className="text-lg leading-relaxed text-ccgarlic-light max-w-md">{body}</p>
             </li>
           ))}
-        </ul>
+        </ol>
       </section>
 
-      <section
-        aria-labelledby="explore-title"
-        className="relative isolate overflow-hidden py-20 md:py-28 border-y border-ccgarlic-dark"
-      >
-        <HennaPattern className="absolute inset-0 -z-10 size-full opacity-30" />
-        <div className="max-w-screen-xl mx-auto px-5 xl:px-10 flex flex-col gap-12">
-          <Heading id="explore-title" eyebrow="Get involved">
+      <section aria-labelledby="explore-title" className="relative py-20 md:py-28">
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-henna opacity-25" />
+        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-4 bg-vine" />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-4 bg-vine" />
+        <div className="reveal max-w-screen-xl mx-auto px-5 xl:px-10 flex flex-col gap-12">
+          <h2 id="explore-title" className={`${h2} text-center`}>
             Find your way in
-          </Heading>
-          <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 w-full">
-            {paths.map(({ label, title, body, href, Icon, external }) => (
-              <li key={label} className="flex">
+          </h2>
+          <ul className="grid md:grid-cols-3 gap-10 md:gap-0 md:divide-x divide-ccginger/50">
+            {paths.map(({ title, body, cta, href, Icon, external }) => (
+              <li
+                key={title}
+                className="grid grid-cols-[4rem_1fr] gap-x-5 gap-y-2 justify-items-start md:flex md:flex-col md:items-center md:text-center md:gap-3 md:px-10"
+              >
+                <span className="row-span-3 relative grid place-items-center size-16 md:size-20 text-cccarrot">
+                  <Mandala className="absolute inset-0 size-full text-ccspice/60" />
+                  <Icon className="relative size-7" aria-hidden="true" />
+                </span>
+                <h3 className="text-xl md:text-2xl font-bold">{title}</h3>
+                <p className="text-ccgarlic-light leading-relaxed max-w-xs">{body}</p>
                 <Link
                   href={href}
-                  aria-label={
-                    external ? "Open Instagram (opens in a new tab)" : `Go to ${label}`
-                  }
-                  {...(external && {
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                  })}
-                  className={`group flex-1 flex flex-col items-center text-center gap-3 rounded-t-full rounded-b-2xl border border-ccginger bg-ccivory p-2 transition hover:-translate-y-1 hover:shadow-lg hover:shadow-ccdark-tone/10 motion-reduce:hover:translate-y-0 ${focus}`}
+                  {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+                  className={link}
                 >
-                  <span className="flex-1 w-full flex flex-col items-center gap-2 sm:gap-3 rounded-t-full rounded-b-xl border border-dashed border-ccginger/70 px-2 sm:px-5 pt-6 sm:pt-10 pb-4 sm:pb-6">
-                    <span className="relative grid place-items-center size-14 sm:size-20">
-                      <Mandala className="absolute inset-0 size-full text-ccspice/70 transition-transform duration-700 motion-safe:group-hover:rotate-45" />
-                      <Icon className="relative size-6 sm:size-7 text-cccarrot" aria-hidden="true" />
-                    </span>
-                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-cccarrot">
-                      {label}
-                    </span>
-                    <span className="font-display font-bold text-2xl sm:text-3xl leading-tight">
-                      {title}
-                    </span>
-                    <span className="hidden sm:block text-ccgarlic-light leading-relaxed">
-                      {body}
-                    </span>
-                    <span className="mt-auto pt-1 sm:pt-2 inline-flex items-center gap-1 whitespace-nowrap text-[0.8125rem] sm:text-sm font-bold text-cccarrot group-hover:underline underline-offset-4">
-                      {external ? "Open Instagram" : `Go to ${label}`}
-                      {external ? (
-                        <ArrowUpRightIcon className="size-4" aria-hidden="true" />
-                      ) : (
-                        <ArrowRightIcon className="size-4" aria-hidden="true" />
-                      )}
-                    </span>
-                  </span>
+                  {cta}
+                  {external ? (
+                    <>
+                      <ArrowUpRightIcon className="size-4" aria-hidden="true" />
+                      <span className="sr-only">(opens in a new tab)</span>
+                    </>
+                  ) : (
+                    <ArrowRightIcon className="size-4" aria-hidden="true" />
+                  )}
                 </Link>
               </li>
             ))}
@@ -354,72 +293,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        id="about"
-        aria-labelledby="about-title"
-        className="scroll-mt-12 max-w-screen-xl mx-auto px-5 xl:px-10 py-20 md:py-28 grid lg:grid-cols-[1fr_1.2fr] items-center gap-12 lg:gap-20"
-      >
-        <div
-          aria-hidden="true"
-          className="relative mx-auto w-full max-w-56 sm:max-w-sm aspect-[4/5] sm:aspect-[3/4] rounded-t-full border border-ccginger p-3"
-        >
-          <div className="relative size-full overflow-hidden rounded-t-full border border-dashed border-ccginger/70 bg-ccdark-tone">
-            <HennaPattern className="absolute inset-0 size-full opacity-40" />
-            <Mandala className="absolute left-1/2 top-[38%] w-[85%] -translate-x-1/2 -translate-y-1/2 text-ccivory/80" />
-            <Paisley className="absolute bottom-6 left-6 w-14 -rotate-12 text-ccgarlic-dark" />
-            <Paisley className="absolute bottom-6 right-6 w-14 rotate-12 -scale-x-100 text-ccgarlic-dark" />
-          </div>
-        </div>
-        <div className="flex flex-col items-start gap-5">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cccarrot">
-            About us
-          </p>
-          <h2
-            id="about-title"
-            className="font-display font-bold text-4xl md:text-5xl leading-tight text-balance"
-          >
-            A student-led home for South Asian wellness at UNC
-          </h2>
-          <Divider className="w-56 text-ccspice -ml-2" />
-          <div className="flex flex-col gap-4 text-lg leading-relaxed text-ccgarlic-light max-w-prose">
-            <p>
-              We dive into health issues common in the South Asian community,
-              like heart health and diabetes, and help combat them through
-              cultural practices and daily habits.
-            </p>
-            <p>
-              Spices like turmeric, cumin, and ginger have been used for
-              centuries for their medicinal properties. We teach members to
-              cook healthy dishes with them, debunk common food myths, explore
-              practices like Ayurveda, yoga, and meditation, and promote
-              mental health along the way.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3 pt-2">
-            <Link
-              href="/articles/about-us"
-              className={`${button} bg-cccarrot text-ccivory hover:bg-ccdark-tone`}
-            >
-              Learn about the club
-              <ArrowRightIcon className="size-4" aria-hidden="true" />
-            </Link>
-            <Link
-              href={instagram.href}
-              target={instagram.target}
-              rel="noopener noreferrer"
-              className={`${button} border border-ccdark-tone/40 hover:border-ccdark-tone hover:bg-ccdark-tone hover:text-ccivory`}
-            >
-              <instagram.Icon className="size-5" aria-hidden="true" />
-              Instagram
-              <span className="sr-only">(opens in a new tab)</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <div className="px-5">
-        <Divider className="mx-auto w-64 text-ccspice" />
-      </div>
+      <Team />
       <Partnerships />
     </main>
   );
