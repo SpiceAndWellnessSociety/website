@@ -20,6 +20,7 @@ import {
   Divider,
   HennaPattern,
   Mandala,
+  FloralSpray,
   Paisley,
   Toran,
 } from "./_components/Ornaments";
@@ -138,7 +139,7 @@ export default function Home() {
           className="absolute inset-0 -z-10 size-full text-ccginger opacity-35"
         />
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_30%_45%,var(--ccivory)_40%,transparent_80%)]" />
-        <div className="max-w-screen-xl mx-auto px-5 xl:px-10 grid lg:grid-cols-[1.15fr_1fr] items-center gap-12">
+        <div className="max-w-screen-xl mx-auto px-5 xl:px-10 grid md:grid-cols-[1.2fr_1fr] lg:grid-cols-[1.15fr_1fr] items-center gap-12 md:gap-8 lg:gap-12">
           <div className="relative flex flex-col items-start gap-6">
             <p className="flex items-center gap-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-cccarrot">
               <span aria-hidden="true" className="h-px w-8 bg-current" />
@@ -146,7 +147,7 @@ export default function Home() {
             </p>
             <h1
               id="hero-title"
-              className="font-display font-bold text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-balance"
+              className="font-display font-bold text-5xl sm:text-6xl md:text-[3.5rem] lg:text-7xl leading-[1.05] text-balance"
             >
               Heart health, rooted in{" "}
               <span className="text-cccarrot italic">tradition</span>.
@@ -182,12 +183,11 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="absolute -right-28 -top-4 w-80 opacity-25 sm:opacity-40 lg:opacity-100 lg:static lg:w-full lg:max-w-lg lg:justify-self-end">
-            <div className="relative aspect-square">
-              <Mandala className="size-full text-ccspice motion-safe:animate-[spin_240s_linear_infinite]" />
-              <Paisley className="hidden lg:block absolute -left-10 bottom-0 w-24 -rotate-12 text-ccginger" />
-              <Paisley className="hidden lg:block absolute -right-4 -top-6 w-16 rotate-[160deg] text-ccginger" />
-            </div>
+          <div className="relative w-full max-w-72 sm:max-w-sm md:max-w-lg mx-auto md:mr-0 aspect-square">
+            <Mandala className="size-full text-ccspice motion-safe:animate-[spin_240s_linear_infinite]" />
+            <FloralSpray className="absolute -left-[16%] -bottom-[10%] w-[58%] text-ccginger" />
+            <FloralSpray className="absolute -right-[10%] -top-[8%] w-[42%] rotate-180 text-ccginger" />
+            <Paisley className="absolute right-0 bottom-0 w-[14%] rotate-12 text-cccarrot/70" />
           </div>
         </div>
         <Toran
@@ -205,9 +205,9 @@ export default function Home() {
           className="absolute inset-0 -z-10 size-full text-ccginger opacity-20"
         />
         <div className="max-w-screen-lg mx-auto px-5 flex flex-col md:flex-row items-center gap-10 md:gap-14">
-          <div className="relative shrink-0 size-52 md:size-60 grid place-items-center">
+          <div className="relative shrink-0 size-44 sm:size-52 md:size-60 grid place-items-center">
             <Mandala className="absolute inset-0 size-full text-ccginger" />
-            <p className="relative grid place-items-center size-28 rounded-full bg-ccdark-tone font-display font-bold text-6xl">
+            <p className="relative grid place-items-center size-24 md:size-28 rounded-full bg-ccdark-tone font-display font-bold text-5xl md:text-6xl">
               4&times;
             </p>
           </div>
@@ -223,6 +223,26 @@ export default function Home() {
               Genetic, historical, and environmental factors all play a part.
               We meet that risk where it lives: in our kitchens, our families,
               and the traditions we share.
+            </p>
+            <p className="text-sm leading-relaxed text-ccgarlic-dark max-w-2xl border-t border-ccginger/40 pt-4">
+              Among young South Asians, one in four heart attacks happens
+              before age 40 (
+              <a
+                href="https://stanfordhealthcare.org/medical-clinics/stanford-south-asian-translational-heart-initiative/conditions.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 text-ccivory hover:no-underline rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ccivory"
+              >
+                Stanford Health Care
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              ).{" "}
+              <Link
+                href="/articles/curry-carbs-and-cholesterol-rethinking-tradition-in-todays-society"
+                className="underline underline-offset-2 text-ccivory hover:no-underline rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ccivory"
+              >
+                Read why the risk is higher
+              </Link>
             </p>
           </div>
         </div>
@@ -244,7 +264,7 @@ export default function Home() {
               <span className="grid place-items-center size-12 rounded-full bg-ccivory text-cccarrot ring-1 ring-ccginger outline-2 outline-dotted outline-offset-4 outline-ccginger/70">
                 <Icon className="size-6" aria-hidden="true" />
               </span>
-              <h3 className="font-bold text-lg">{title}</h3>
+              <h3 className="font-display font-bold text-2xl leading-tight">{title}</h3>
               <p className="text-ccgarlic-light leading-relaxed">{body}</p>
             </li>
           ))}
@@ -268,6 +288,9 @@ export default function Home() {
               <li key={label} className="flex">
                 <Link
                   href={href}
+                  aria-label={
+                    external ? "Open Instagram (opens in a new tab)" : `Go to ${label}`
+                  }
                   {...(external && {
                     target: "_blank",
                     rel: "noopener noreferrer",
@@ -295,9 +318,6 @@ export default function Home() {
                       ) : (
                         <ArrowRightIcon className="size-4" aria-hidden="true" />
                       )}
-                      {external && (
-                        <span className="sr-only">(opens in a new tab)</span>
-                      )}
                     </span>
                   </span>
                 </Link>
@@ -314,7 +334,7 @@ export default function Home() {
       >
         <div
           aria-hidden="true"
-          className="relative mx-auto w-full max-w-64 sm:max-w-sm aspect-[3/4] rounded-t-full border border-ccginger p-3"
+          className="relative mx-auto w-full max-w-56 sm:max-w-sm aspect-[4/5] sm:aspect-[3/4] rounded-t-full border border-ccginger p-3"
         >
           <div className="relative size-full overflow-hidden rounded-t-full border border-dashed border-ccginger/70 bg-ccdark-tone">
             <HennaPattern

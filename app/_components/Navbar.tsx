@@ -6,8 +6,7 @@ import MobileMenu from "./MobileMenu";
 export const NavLinks = [
   { label: "Recipes", href: "/cookbook" },
   { label: "Articles", href: "/articles" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "About", href: "/articles/about-us" },
 ];
 
 // Heroicons has no brand icons
