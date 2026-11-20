@@ -29,7 +29,7 @@ function InstagramIcon(props: React.ComponentProps<"svg">) {
 export const Socials = [
   {
     label: "Instagram",
-    href: "https://www.instagram.com/",
+    href: "https://www.instagram.com/unc_spiceandwellness/",
     target: "_blank",
     Icon: InstagramIcon,
   },
