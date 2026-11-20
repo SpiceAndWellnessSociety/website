@@ -2,6 +2,15 @@
 
 Website for a UNC student org focused on heart health in the South Asian community: cookbook, articles, team.
 
+## Landing page goal
+
+The home page (`/`) introduces the club and points visitors to what matters most:
+
+- **Calls to action:** follow us on Instagram, read the articles, browse the recipes, and learn about the club.
+- **About us:** content drawn from the About Us article (`content/about-us.mdx`): heart health in the South Asian community, education, cooking demos, screenings, and preserving cultural traditions.
+- **Indian flair:** intricate, traditional detailing (mandala, paisley, and henna-style line work in backgrounds, borders, and dividers) on top of the existing ivory and spice palette.
+- The existing site is only light inspiration; the landing page sets its own look.
+
 ## Stack
 
 - Next.js (App Router, TypeScript), Tailwind (with `@tailwindcss/typography` for articles), `@next/mdx` + `remark-gfm`
