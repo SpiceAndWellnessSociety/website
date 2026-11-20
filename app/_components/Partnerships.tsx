@@ -29,8 +29,13 @@ function Logos() {
 
 export default function Partnerships() {
   return (
-    <section className="w-full max-w-screen-xl mx-auto py-12 flex flex-col items-center gap-8">
-      <h2 className="font-display font-bold text-4xl md:text-5xl">Partnerships</h2>
+    <section
+      aria-labelledby="partners-title"
+      className="w-full max-w-screen-xl mx-auto py-12 flex flex-col items-center gap-8"
+    >
+      <h2 id="partners-title" className="font-display font-bold text-4xl md:text-5xl">
+        Partnerships
+      </h2>
       <div className="hidden md:flex motion-reduce:flex flex-wrap justify-center items-center gap-x-16 gap-y-6">
         <Logos />
       </div>

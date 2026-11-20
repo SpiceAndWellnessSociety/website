@@ -1,4 +1,4 @@
-// Hand-drawn henna-style line art; all decorative, so every SVG is aria-hidden
+// Hand-drawn henna-style line art, defined once in <OrnamentDefs> and reused with <use>
 type Props = React.ComponentProps<"svg">;
 
 const line = {
@@ -51,10 +51,10 @@ function Rosette({ n, r }: { n: number; r: number }) {
   );
 }
 
+// Outer ring first so inner petals sit on top when the bloom is filled
 function Bloom({ x, y, r, n }: { x: number; y: number; r: number; n: number }) {
-  // ivory fill hides the lines this bloom overlaps; outer ring first so inner petals sit on top
   return (
-    <g transform={`translate(${x} ${y})`} fill="var(--ccivory)">
+    <g transform={`translate(${x} ${y})`}>
       <Ring n={n} offset={180 / n}>
         <path d={petal(r * 0.45, r, r * 0.3)} />
         <path d={petal(r * 0.55, r * 0.88, r * 0.1)} />
@@ -75,217 +75,207 @@ function Leaf({ x, y, rot, len }: { x: number; y: number; rot: number; len: numb
     .map((t) => `M0 ${-t * len}l${w * 0.7} ${-len * 0.12}M0 ${-t * len}l${-w * 0.7} ${-len * 0.12}`)
     .join("");
   return (
-    <g transform={`translate(${x} ${y}) rotate(${rot})`} fill="var(--ccivory)">
+    <g transform={`translate(${x} ${y}) rotate(${rot})`}>
       <path d={petal(0, len, w)} />
       <path d={`M0 0V${-len * 0.9}${veins}`} strokeWidth={0.5} />
     </g>
   );
 }
 
-export function FloralSpray(props: Props) {
-  return (
-    <svg viewBox="0 0 220 180" aria-hidden="true" {...props}>
-      <g {...line} strokeWidth={0.8}>
-        <path d="M20 170C50 150 70 120 80 96M80 96C110 90 130 70 140 52M80 96C110 110 130 120 150 126" />
-        <path d="M150 126C176 132 196 118 194 98C192 84 178 82 176 94C175 101 184 103 185 97" />
-        <path d="M140 52C150 30 172 22 186 32C196 40 188 52 180 48C175 45 178 40 182 41" />
-        <Leaf x={40} y={156} rot={-40} len={34} />
-        <Leaf x={56} y={140} rot={50} len={30} />
-        <Leaf x={118} y={112} rot={150} len={26} />
-        <Leaf x={112} y={80} rot={20} len={28} />
-        <Leaf x={166} y={128} rot={110} len={22} />
-        <Bloom x={80} y={96} r={34} n={10} />
-        <Bloom x={140} y={52} r={22} n={8} />
-        <Bloom x={150} y={126} r={16} n={8} />
-        {[
-          [200, 70],
-          [206, 80],
-          [24, 120],
-          [16, 130],
-          [196, 144],
-          [104, 22],
-          [96, 30],
-        ].map(([cx, cy]) => (
-          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={1.6} fill="currentColor" />
-        ))}
-      </g>
-    </svg>
-  );
+function Specks({ at, r = 1.4 }: { at: number[][]; r?: number }) {
+  return at.map(([cx, cy]) => (
+    <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={r} fill="currentColor" />
+  ));
 }
 
 const paisley =
   "M50 135C22 135 8 114 10 92C12 66 32 52 48 40C62 30 70 18 64 6C80 12 88 32 84 52C92 68 92 100 80 118C72 130 62 135 50 135Z";
 
-export function Mandala(props: Props) {
-  return (
-    <svg viewBox="-100 -100 200 200" aria-hidden="true" {...props}>
-      <g {...line} strokeWidth={0.7}>
-        <circle r={3.5} fill="currentColor" />
-        <circle r={8} />
-        <Ring n={8}>
-          <path d={petal(10, 27, 8)} />
-          <path d={petal(13, 23, 3)} />
-        </Ring>
-        <Ring n={8} offset={22.5}>
-          <path d={petal(12, 20, 3.5)} />
-        </Ring>
-        <circle r={30} />
-        <Dots r={34} n={40} size={1.6} />
-        <circle r={37.5} />
-        <Ring n={16}>
-          <path d={petal(39, 60, 8)} />
-          <path d={petal(43, 55, 3.5)} />
-          <circle cy={-47} r={0.9} fill="currentColor" />
-        </Ring>
-        <Ring n={16} offset={11.25}>
-          <circle cy={-60} r={1.1} fill="currentColor" />
-          <path d={petal(52, 63, 2.5)} />
-        </Ring>
-        <circle r={66} />
-        <Ring n={24}>
-          <path d="M-9.1 -69.4A9.1 9.1 0 0 1 9.1 -69.4" />
-          <path d="M-5.6 -69.8A5.6 5.6 0 0 1 5.6 -69.8" />
-          <path d={petal(80, 90, 3)} />
-          <circle cy={-94} r={1} fill="currentColor" />
-        </Ring>
-        <Ring n={24} offset={7.5}>
-          <circle cy={-74} r={0.8} fill="currentColor" />
-          <circle cy={-84} r={1.3} />
-        </Ring>
-        <Dots r={97} n={96} size={1.1} />
-      </g>
-    </svg>
-  );
-}
+const views = {
+  mandala: "-100 -100 200 200",
+  paisley: "-12 -18 124 172",
+  spray: "0 0 220 180",
+  divider: "0 0 320 40",
+};
 
-export function Paisley(props: Props) {
+export function OrnamentDefs() {
   return (
-    <svg viewBox="-12 -18 124 172" aria-hidden="true" {...props}>
-      <g {...line} strokeWidth={1.1}>
-        <path d={paisley} />
-        <path d={paisley} transform="translate(14 26.6) scale(.72)" />
-        <path
-          d={paisley}
-          transform="translate(-6 -11.4) scale(1.12)"
-          strokeWidth={2.2}
-          strokeDasharray="0 6"
-        />
-        <path d="M64 6C58 14 50 12 52 4C53 0 58 0 59 3" />
-        <g transform="translate(50 98)">
-          <Rosette n={8} r={16} />
-          <Dots r={21} n={22} size={2} />
-        </g>
-        <path d="M50 58C44 64 46 72 52 70" />
-        <circle cx={58} cy={52} r={1.8} fill="currentColor" />
-        <circle cx={62} cy={44} r={1.3} fill="currentColor" />
-      </g>
-    </svg>
-  );
-}
-
-export function Divider(props: Props) {
-  return (
-    <svg viewBox="0 0 320 40" aria-hidden="true" {...props}>
-      <g {...line} strokeWidth={1}>
-        <path d="M120 20C96 20 84 10 64 14C44 18 36 30 20 26C10 24 8 14 16 12C22 11 22 18 18 18" />
-        <path d="M200 20C224 20 236 10 256 14C276 18 284 30 300 26C310 24 312 14 304 12C298 11 298 18 302 18" />
-        <Leaf x={92} y={16} rot={-70} len={14} />
-        <Leaf x={52} y={18} rot={-120} len={12} />
-        <Leaf x={228} y={16} rot={70} len={14} />
-        <Leaf x={268} y={18} rot={120} len={12} />
-        {[
-          [76, 8],
-          [36, 32],
-          [244, 8],
-          [284, 32],
-        ].map(([cx, cy]) => (
-          <circle key={cx} cx={cx} cy={cy} r={1.4} fill="currentColor" />
-        ))}
-        <g transform="translate(160 20)">
-          <g transform="rotate(-90)">
-            <path d={petal(18, 38, 6)} />
-            <path d={petal(21, 32, 2)} />
-          </g>
-          <g transform="rotate(90)">
-            <path d={petal(18, 38, 6)} />
-            <path d={petal(21, 32, 2)} />
-          </g>
-          <Rosette n={8} r={13} />
-          <circle r={16} />
-        </g>
-      </g>
-    </svg>
-  );
-}
-
-export function HennaPattern({ id, ...props }: Props & { id: string }) {
-  return (
-    <svg aria-hidden="true" {...props}>
+    <svg aria-hidden="true" width="0" height="0" className="absolute">
       <defs>
-        <pattern
-          id={id}
-          width={140}
-          height={140}
-          patternUnits="userSpaceOnUse"
-        >
-          <g {...line} strokeWidth={0.8}>
-            <g transform="translate(35 35)">
-              <Rosette n={8} r={13} />
-              <Dots r={17} n={20} size={1.6} />
-              <circle r={20} />
-            </g>
-            <g transform="translate(105 105)">
-              <Rosette n={6} r={9} />
-              <Dots r={12} n={14} size={1.4} />
-            </g>
-            <path d="M50 46C66 56 62 78 80 86C88 90 94 88 92 82" />
-            <path d="M66 66C72 60 80 60 84 64C78 68 72 68 66 66Z" />
-            <path d="M58 76C52 82 50 90 54 96C58 90 60 82 58 76Z" />
-            <path d="M48 24C60 14 78 16 84 28C88 36 80 42 74 38C70 35 72 30 76 31" />
+        <symbol id="orn-mandala" viewBox={views.mandala}>
+          <g {...line} strokeWidth={0.7}>
+            <circle r={3.5} fill="currentColor" />
+            <circle r={8} />
+            <Ring n={8}>
+              <path d={petal(10, 27, 8)} />
+              <path d={petal(13, 23, 3)} />
+            </Ring>
+            <Ring n={8} offset={22.5}>
+              <path d={petal(12, 20, 3.5)} />
+            </Ring>
+            <circle r={30} />
+            <Dots r={34} n={40} size={1.6} />
+            <circle r={37.5} />
+            <Ring n={16}>
+              <path d={petal(39, 60, 8)} />
+              <path d={petal(43, 55, 3.5)} />
+              <circle cy={-47} r={0.9} fill="currentColor" />
+            </Ring>
+            <Ring n={16} offset={11.25}>
+              <circle cy={-60} r={1.1} fill="currentColor" />
+              <path d={petal(52, 63, 2.5)} />
+            </Ring>
+            <circle r={66} />
+            <Ring n={24}>
+              <path d="M-9.1 -69.4A9.1 9.1 0 0 1 9.1 -69.4" />
+              <path d="M-5.6 -69.8A5.6 5.6 0 0 1 5.6 -69.8" />
+              <path d={petal(80, 90, 3)} />
+              <circle cy={-94} r={1} fill="currentColor" />
+            </Ring>
+            <Ring n={24} offset={7.5}>
+              <circle cy={-74} r={0.8} fill="currentColor" />
+              <circle cy={-84} r={1.3} />
+            </Ring>
+            <Dots r={97} n={96} size={1.1} />
+          </g>
+        </symbol>
+
+        <symbol id="orn-paisley" viewBox={views.paisley}>
+          <g {...line} strokeWidth={1.1}>
+            <path d={paisley} />
+            <path d={paisley} transform="translate(14 26.6) scale(.72)" />
             <path
               d={paisley}
-              transform="translate(8 82) scale(.32) rotate(-20 50 90)"
+              transform="translate(-6 -11.4) scale(1.12)"
+              strokeWidth={2.2}
+              strokeDasharray="0 6"
             />
-            <path
-              d="M120 10C128 18 134 34 128 50C124 58 116 58 116 52"
-              transform="translate(-6 0)"
+            <path d="M64 6C58 14 50 12 52 4C53 0 58 0 59 3" />
+            <g transform="translate(50 98)">
+              <Rosette n={8} r={16} />
+              <Dots r={21} n={22} size={2} />
+            </g>
+            <path d="M50 58C44 64 46 72 52 70" />
+            <Specks at={[[58, 52], [62, 44]]} r={1.6} />
+          </g>
+        </symbol>
+
+        <symbol id="orn-spray" viewBox={views.spray}>
+          <g {...line} strokeWidth={0.8}>
+            <path d="M20 170C50 150 70 120 80 96M80 96C110 90 130 70 140 52M80 96C110 110 130 120 150 126" />
+            <path d="M150 126C176 132 196 118 194 98C192 84 178 82 176 94C175 101 184 103 185 97" />
+            <path d="M140 52C150 30 172 22 186 32C196 40 188 52 180 48C175 45 178 40 182 41" />
+            {/* ivory fill hides the vines and mandala lines behind each flower */}
+            <g fill="var(--ccivory)">
+              <Leaf x={40} y={156} rot={-40} len={34} />
+              <Leaf x={56} y={140} rot={50} len={30} />
+              <Leaf x={118} y={112} rot={150} len={26} />
+              <Leaf x={112} y={80} rot={20} len={28} />
+              <Leaf x={166} y={128} rot={110} len={22} />
+              <Bloom x={80} y={96} r={34} n={10} />
+              <Bloom x={140} y={52} r={22} n={8} />
+              <Bloom x={150} y={126} r={16} n={8} />
+            </g>
+            <Specks
+              at={[[200, 70], [206, 80], [24, 120], [16, 130], [196, 144], [104, 22], [96, 30]]}
+              r={1.6}
             />
-            {[
-              [104, 24],
-              [112, 34],
-              [100, 40],
-              [16, 130],
-              [8, 118],
-              [70, 124],
-              [130, 70],
-              [84, 112],
-            ].map(([x, y]) => (
-              <circle key={`${x}-${y}`} cx={x} cy={y} r={1.3} fill="currentColor" />
-            ))}
+          </g>
+        </symbol>
+
+        <symbol id="orn-divider" viewBox={views.divider}>
+          <g {...line} strokeWidth={1}>
+            <path d="M120 20C96 20 84 10 64 14C44 18 36 30 20 26C10 24 8 14 16 12C22 11 22 18 18 18" />
+            <path d="M200 20C224 20 236 10 256 14C276 18 284 30 300 26C310 24 312 14 304 12C298 11 298 18 302 18" />
+            <Leaf x={92} y={16} rot={-70} len={14} />
+            <Leaf x={52} y={18} rot={-120} len={12} />
+            <Leaf x={228} y={16} rot={70} len={14} />
+            <Leaf x={268} y={18} rot={120} len={12} />
+            <Specks at={[[76, 8], [36, 32], [244, 8], [284, 32]]} />
+            <g transform="translate(160 20)">
+              <g transform="rotate(-90)">
+                <path d={petal(18, 38, 6)} />
+                <path d={petal(21, 32, 2)} />
+              </g>
+              <g transform="rotate(90)">
+                <path d={petal(18, 38, 6)} />
+                <path d={petal(21, 32, 2)} />
+              </g>
+              <Rosette n={8} r={13} />
+              <circle r={16} />
+            </g>
+          </g>
+        </symbol>
+
+        {/* patterns resolve currentColor from here, not from where they're used */}
+        <pattern
+          id="orn-henna"
+          width={160}
+          height={160}
+          patternUnits="userSpaceOnUse"
+          color="var(--ccginger)"
+        >
+          <g {...line} strokeWidth={0.8}>
+            <path d="M40 40C62 52 60 84 84 96C100 104 112 100 116 112" />
+            <path d="M48 22C62 8 84 10 92 26C96 36 86 44 80 38C76 34 80 28 84 31" />
+            <path d="M150 18C158 34 156 54 142 62C134 66 128 60 132 54" />
+            <Leaf x={58} y={64} rot={-60} len={18} />
+            <Leaf x={70} y={84} rot={210} len={16} />
+            <Leaf x={98} y={102} rot={60} len={14} />
+            <g transform="translate(40 40)">
+              <Rosette n={8} r={14} />
+              <Dots r={18} n={22} size={1.6} />
+              <circle r={21} />
+            </g>
+            <Bloom x={124} y={124} r={16} n={8} />
+            <path d={paisley} transform="translate(6 92) scale(.36) rotate(-20 50 90)" />
+            <Specks
+              at={[[110, 30], [118, 40], [106, 46], [16, 150], [8, 138], [80, 150], [150, 82], [90, 130], [140, 96]]}
+              r={1.3}
+            />
           </g>
         </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill={`url(#${id})`} />
-    </svg>
-  );
-}
 
-export function Toran({ id, ...props }: Props & { id: string }) {
-  return (
-    <svg aria-hidden="true" {...props}>
-      <defs>
-        <pattern id={id} width={48} height={32} patternUnits="userSpaceOnUse">
+        <pattern
+          id="orn-toran"
+          width={48}
+          height={32}
+          patternUnits="userSpaceOnUse"
+          color="var(--ccspice)"
+        >
           <g {...line} strokeWidth={1}>
             <path d="M0 3H48M0 6H48" />
             <path d="M0 6Q24 34 48 6M8 6Q24 24 40 6" />
             <path d={petal(0, 10, 3)} transform="translate(24 30) scale(1 -1)" />
-            <circle cx={24} cy={14} r={1.3} fill="currentColor" />
-            <circle cx={0} cy={11} r={1.3} fill="currentColor" />
-            <circle cx={48} cy={11} r={1.3} fill="currentColor" />
+            <Specks at={[[24, 14], [0, 11], [48, 11]]} r={1.3} />
           </g>
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill={`url(#${id})`} />
     </svg>
   );
 }
+
+function Use({ symbol, ...props }: Props & { symbol: keyof typeof views }) {
+  const [, , w, h] = views[symbol].split(" ");
+  return (
+    <svg viewBox={`0 0 ${w} ${h}`} aria-hidden="true" {...props}>
+      <use href={`#orn-${symbol}`} width={w} height={h} />
+    </svg>
+  );
+}
+
+export const Mandala = (props: Props) => <Use symbol="mandala" {...props} />;
+export const Paisley = (props: Props) => <Use symbol="paisley" {...props} />;
+export const FloralSpray = (props: Props) => <Use symbol="spray" {...props} />;
+export const Divider = (props: Props) => <Use symbol="divider" {...props} />;
+
+function Fill({ pattern, ...props }: Props & { pattern: string }) {
+  return (
+    <svg aria-hidden="true" {...props}>
+      <rect width="100%" height="100%" fill={`url(#orn-${pattern})`} />
+    </svg>
+  );
+}
+
+export const HennaPattern = (props: Props) => <Fill pattern="henna" {...props} />;
+export const Toran = (props: Props) => <Fill pattern="toran" {...props} />;

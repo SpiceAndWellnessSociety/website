@@ -20,6 +20,7 @@ import {
   Divider,
   HennaPattern,
   Mandala,
+  OrnamentDefs,
   FloralSpray,
   Paisley,
   Toran,
@@ -35,7 +36,9 @@ const instagram = Socials[0];
 
 const focus =
   "outline-none focus-visible:ring-2 focus-visible:ring-cccarrot focus-visible:ring-offset-4 focus-visible:ring-offset-ccivory";
-const button = `inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition-colors ${focus}`;
+const source =
+  "underline underline-offset-2 text-ccivory hover:no-underline rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ccivory";
+const button =`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition-colors ${focus}`;
 
 const work = [
   {
@@ -129,35 +132,46 @@ function Heading({
 
 export default function Home() {
   return (
-    <main className={`${display.variable} flex-1 w-full overflow-x-clip`}>
+    <main
+      id="main"
+      tabIndex={-1}
+      className={`${display.variable} flex-1 w-full overflow-x-clip outline-none`}
+    >
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-full focus:bg-ccdark-tone focus:px-5 focus:py-2 focus:font-semibold focus:text-ccivory"
+      >
+        Skip to content
+      </a>
+      <OrnamentDefs />
       <section
         aria-labelledby="hero-title"
-        className="relative isolate overflow-hidden pt-32 md:pt-40 pb-24 md:pb-32"
+        className="relative isolate overflow-hidden pt-28 md:pt-40 pb-20 md:pb-32"
       >
-        <HennaPattern
-          id="henna-hero"
-          className="absolute inset-0 -z-10 size-full text-ccginger opacity-35"
-        />
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_30%_45%,var(--ccivory)_40%,transparent_80%)]" />
-        <div className="max-w-screen-xl mx-auto px-5 xl:px-10 grid md:grid-cols-[1.2fr_1fr] lg:grid-cols-[1.15fr_1fr] items-center gap-12 md:gap-8 lg:gap-12">
-          <div className="relative flex flex-col items-start gap-6">
-            <p className="flex items-center gap-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-cccarrot">
+        <HennaPattern className="absolute inset-0 -z-10 size-full opacity-35" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_30%_45%,var(--ccivory)_45%,transparent_85%)]" />
+        <div className="max-w-screen-xl mx-auto px-5 xl:px-10 grid md:grid-cols-[1.2fr_1fr] lg:grid-cols-[1.15fr_1fr] items-center gap-6 md:gap-8 lg:gap-12">
+          <div className="relative flex flex-col items-start gap-5 md:gap-6">
+            <p className="flex items-center gap-3 -mx-3 px-3 py-1 rounded-full bg-ccivory text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-cccarrot">
               <span aria-hidden="true" className="h-px w-8 bg-current" />
               UNC Chapel Hill student organization
             </p>
             <h1
               id="hero-title"
-              className="font-display font-bold text-5xl sm:text-6xl md:text-[3.5rem] lg:text-7xl leading-[1.05] text-balance"
+              className="font-display font-bold text-5xl sm:text-6xl md:text-[3.5rem] lg:text-7xl leading-[1.05]"
             >
-              Heart health, rooted in{" "}
-              <span className="text-cccarrot italic">tradition</span>.
+              <span className="block">Heart health,</span>
+              <span className="whitespace-nowrap">rooted in</span>{" "}
+              <span className="whitespace-nowrap">
+                <span className="text-cccarrot italic">tradition</span>.
+              </span>
             </h1>
             <p className="max-w-xl text-lg md:text-xl leading-relaxed text-ccgarlic-light">
               The Spice and Wellness Society is committed to cardiovascular
               health in the South Asian community, through education, free
               heart screenings, and the spices and recipes we grew up with.
             </p>
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="grid w-full sm:flex sm:w-auto sm:flex-wrap gap-3 pt-2">
               <Link
                 href="/cookbook"
                 className={`${button} bg-cccarrot text-ccivory hover:bg-ccdark-tone`}
@@ -175,7 +189,7 @@ export default function Home() {
                 href={instagram.href}
                 target={instagram.target}
                 rel="noopener noreferrer"
-                className={`${button} px-4 text-cccarrot hover:text-ccdark-tone underline-offset-4 hover:underline`}
+                className={`${button} border border-cccarrot/40 text-cccarrot hover:border-cccarrot hover:bg-cccarrot hover:text-ccivory`}
               >
                 <instagram.Icon className="size-5" aria-hidden="true" />
                 Follow on Instagram
@@ -183,27 +197,23 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="relative w-full max-w-72 sm:max-w-sm md:max-w-lg mx-auto md:mr-0 aspect-square">
+          <div className="relative -order-1 md:order-none w-full max-w-36 sm:max-w-56 md:max-w-lg mx-auto md:mr-0 aspect-square">
             <Mandala className="size-full text-ccspice motion-safe:animate-[spin_240s_linear_infinite]" />
             <FloralSpray className="absolute -left-[16%] -bottom-[10%] w-[58%] text-ccginger" />
             <FloralSpray className="absolute -right-[10%] -top-[8%] w-[42%] rotate-180 text-ccginger" />
             <Paisley className="absolute right-0 bottom-0 w-[14%] rotate-12 text-cccarrot/70" />
           </div>
         </div>
-        <Toran
-          id="toran-hero"
-          className="absolute bottom-0 inset-x-0 h-8 w-full text-ccspice scale-y-[-1]"
-        />
+        <Toran className="absolute bottom-0 inset-x-0 h-8 w-full scale-y-[-1]" />
       </section>
 
       <section
         aria-labelledby="why-title"
         className="relative isolate overflow-hidden bg-ccdark-tone text-ccivory py-16 md:py-20"
       >
-        <HennaPattern
-          id="henna-why"
-          className="absolute inset-0 -z-10 size-full text-ccginger opacity-20"
-        />
+        <HennaPattern className="absolute inset-0 -z-10 size-full opacity-25" />
+        <Toran className="absolute top-0 inset-x-0 h-8 w-full" />
+        <Toran className="absolute bottom-0 inset-x-0 h-8 w-full scale-y-[-1]" />
         <div className="max-w-screen-lg mx-auto px-5 flex flex-col md:flex-row items-center gap-10 md:gap-14">
           <div className="relative shrink-0 size-44 sm:size-52 md:size-60 grid place-items-center">
             <Mandala className="absolute inset-0 size-full text-ccginger" />
@@ -216,30 +226,42 @@ export default function Home() {
               id="why-title"
               className="font-display font-bold text-3xl md:text-4xl leading-tight text-balance"
             >
-              South Asians are four times more likely to experience heart
-              issues.
+              South Asians have four times the risk of heart disease of the
+              general population.
             </h2>
+            <p className="text-sm text-ccgarlic-dark">
+              Source:{" "}
+              <a
+                href="https://stanfordhealthcare.org/medical-clinics/stanford-south-asian-translational-heart-initiative/conditions.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={source}
+              >
+                Stanford Health Care, South Asian Translational Heart Initiative
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </p>
             <p className="text-lg leading-relaxed text-ccgarlic-dark max-w-2xl">
               Genetic, historical, and environmental factors all play a part.
               We meet that risk where it lives: in our kitchens, our families,
               and the traditions we share.
             </p>
             <p className="text-sm leading-relaxed text-ccgarlic-dark max-w-2xl border-t border-ccginger/40 pt-4">
-              Among young South Asians, one in four heart attacks happens
-              before age 40 (
+              One in four heart attacks among South Asians happens before age
+              40 (
               <a
-                href="https://stanfordhealthcare.org/medical-clinics/stanford-south-asian-translational-heart-initiative/conditions.html"
+                href="https://www.southasianheartcenter.org/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline underline-offset-2 text-ccivory hover:no-underline rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ccivory"
+                className={source}
               >
-                Stanford Health Care
+                South Asian Heart Center
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
               ).{" "}
               <Link
                 href="/articles/curry-carbs-and-cholesterol-rethinking-tradition-in-todays-society"
-                className="underline underline-offset-2 text-ccivory hover:no-underline rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ccivory"
+                className={source}
               >
                 Read why the risk is higher
               </Link>
@@ -259,12 +281,20 @@ export default function Home() {
           {work.map(({ title, body, Icon }) => (
             <li
               key={title}
-              className="relative flex flex-col gap-4 rounded-2xl border border-ccgarlic-dark bg-white/50 p-6 md:p-7"
+              className="relative flex flex-col gap-3 sm:gap-4 rounded-2xl border border-ccgarlic-dark bg-white/50 p-5 md:p-7"
             >
-              <span className="grid place-items-center size-12 rounded-full bg-ccivory text-cccarrot ring-1 ring-ccginger outline-2 outline-dotted outline-offset-4 outline-ccginger/70">
-                <Icon className="size-6" aria-hidden="true" />
-              </span>
-              <h3 className="font-display font-bold text-2xl leading-tight">{title}</h3>
+              <Paisley className="absolute top-4 right-4 w-6 rotate-12 text-ccginger/60" />
+              <div className="flex items-center gap-4 sm:flex-col sm:items-start">
+                <span className="relative shrink-0 grid place-items-center size-14 sm:size-16 text-cccarrot">
+                  <Mandala className="absolute inset-0 size-full text-ccspice/60" />
+                  <span className="relative grid place-items-center size-8 rounded-full bg-ccivory">
+                    <Icon className="size-5" aria-hidden="true" />
+                  </span>
+                </span>
+                <h3 className="font-display font-bold text-2xl leading-tight pr-6 sm:pr-0">
+                  {title}
+                </h3>
+              </div>
               <p className="text-ccgarlic-light leading-relaxed">{body}</p>
             </li>
           ))}
@@ -275,15 +305,12 @@ export default function Home() {
         aria-labelledby="explore-title"
         className="relative isolate overflow-hidden py-20 md:py-28 border-y border-ccgarlic-dark"
       >
-        <HennaPattern
-          id="henna-explore"
-          className="absolute inset-0 -z-10 size-full text-ccginger opacity-25"
-        />
+        <HennaPattern className="absolute inset-0 -z-10 size-full opacity-30" />
         <div className="max-w-screen-xl mx-auto px-5 xl:px-10 flex flex-col gap-12">
           <Heading id="explore-title" eyebrow="Get involved">
             Find your way in
           </Heading>
-          <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-xs sm:max-w-none mx-auto w-full">
+          <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 w-full">
             {paths.map(({ label, title, body, href, Icon, external }) => (
               <li key={label} className="flex">
                 <Link
@@ -297,21 +324,21 @@ export default function Home() {
                   })}
                   className={`group flex-1 flex flex-col items-center text-center gap-3 rounded-t-full rounded-b-2xl border border-ccginger bg-ccivory p-2 transition hover:-translate-y-1 hover:shadow-lg hover:shadow-ccdark-tone/10 motion-reduce:hover:translate-y-0 ${focus}`}
                 >
-                  <span className="flex-1 w-full flex flex-col items-center gap-3 rounded-t-full rounded-b-xl border border-dashed border-ccginger/70 px-5 pt-10 pb-6">
-                    <span className="relative grid place-items-center size-20">
+                  <span className="flex-1 w-full flex flex-col items-center gap-2 sm:gap-3 rounded-t-full rounded-b-xl border border-dashed border-ccginger/70 px-2 sm:px-5 pt-6 sm:pt-10 pb-4 sm:pb-6">
+                    <span className="relative grid place-items-center size-14 sm:size-20">
                       <Mandala className="absolute inset-0 size-full text-ccspice/70 transition-transform duration-700 motion-safe:group-hover:rotate-45" />
-                      <Icon className="relative size-7 text-cccarrot" aria-hidden="true" />
+                      <Icon className="relative size-6 sm:size-7 text-cccarrot" aria-hidden="true" />
                     </span>
                     <span className="text-xs font-semibold uppercase tracking-[0.2em] text-cccarrot">
                       {label}
                     </span>
-                    <span className="font-display font-bold text-3xl">
+                    <span className="font-display font-bold text-2xl sm:text-3xl leading-tight">
                       {title}
                     </span>
-                    <span className="text-ccgarlic-light leading-relaxed">
+                    <span className="hidden sm:block text-ccgarlic-light leading-relaxed">
                       {body}
                     </span>
-                    <span className="mt-auto pt-2 inline-flex items-center gap-1 text-sm font-bold text-cccarrot group-hover:underline underline-offset-4">
+                    <span className="mt-auto pt-1 sm:pt-2 inline-flex items-center gap-1 whitespace-nowrap text-[0.8125rem] sm:text-sm font-bold text-cccarrot group-hover:underline underline-offset-4">
                       {external ? "Open Instagram" : `Go to ${label}`}
                       {external ? (
                         <ArrowUpRightIcon className="size-4" aria-hidden="true" />
@@ -337,10 +364,7 @@ export default function Home() {
           className="relative mx-auto w-full max-w-56 sm:max-w-sm aspect-[4/5] sm:aspect-[3/4] rounded-t-full border border-ccginger p-3"
         >
           <div className="relative size-full overflow-hidden rounded-t-full border border-dashed border-ccginger/70 bg-ccdark-tone">
-            <HennaPattern
-              id="henna-about"
-              className="absolute inset-0 size-full text-ccginger opacity-40"
-            />
+            <HennaPattern className="absolute inset-0 size-full opacity-40" />
             <Mandala className="absolute left-1/2 top-[38%] w-[85%] -translate-x-1/2 -translate-y-1/2 text-ccivory/80" />
             <Paisley className="absolute bottom-6 left-6 w-14 -rotate-12 text-ccgarlic-dark" />
             <Paisley className="absolute bottom-6 right-6 w-14 rotate-12 -scale-x-100 text-ccgarlic-dark" />
