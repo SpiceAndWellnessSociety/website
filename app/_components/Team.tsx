@@ -74,8 +74,9 @@ const headshots = team.every((c) => c.members.every((m) => m.photo));
 export default function Team() {
   return (
     <section
+      id="team"
       aria-labelledby="team-title"
-      className="max-w-screen-xl mx-auto px-5 xl:px-10 py-20 md:py-28 flex flex-col gap-10"
+      className="scroll-mt-24 max-w-screen-xl mx-auto px-5 xl:px-10 pt-20 md:pt-28 pb-12 flex flex-col gap-10"
     >
       <h2 id="team-title" className="text-3xl md:text-4xl font-bold">
         Meet the team
@@ -92,7 +93,7 @@ export default function Team() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
         {team.map(({ committee, members }) => (
           <div key={committee} className="flex flex-col gap-3 border-t border-ccgarlic-dark pt-4">
-            <h3 className="font-bold">{committee}</h3>
+            <h3 className="text-xl md:text-2xl font-bold">{committee}</h3>
             <ul className="flex flex-col gap-2">
               {members.map(({ name, role, photo }) => (
                 <li key={name} className="flex items-center gap-3">

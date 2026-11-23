@@ -1,13 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRightIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
+import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import Partnerships from "./_components/Partnerships";
 import Team from "./_components/Team";
 import { Socials } from "./_components/Navbar";
 import { Mandala } from "./_components/Ornaments";
 // Photos from Unsplash (free under the Unsplash License), resized and recompressed:
 // banana-leaf-meal: unsplash.com/photos/yCIcDyKm440, Saktheeswaran Govindarajan
-// spices: unsplash.com/photos/uaHShoIDGeo, Marion Botella
 // spice-market: unsplash.com/photos/2TBqJwt6wDY, Jack Sparrow
 // vegetables: unsplash.com/photos/i8WCZpehUIs, Urja Bhatt
 // stir-fry: unsplash.com/photos/APDMfLHZiRA, Kevin McCutcheon
@@ -18,7 +17,6 @@ import { Mandala } from "./_components/Ornaments";
 // curry-bowls: unsplash.com/photos/aq8v45EwCa0, Chetanya Sharma
 // curries: unsplash.com/photos/ZN-TT10kf4o, Andy Hay
 import bananaLeafMeal from "@/public/landing/banana-leaf-meal.jpg";
-import spices from "@/public/landing/spices.jpg";
 import spiceMarket from "@/public/landing/spice-market.jpg";
 import vegetables from "@/public/landing/vegetables.jpg";
 import stirFry from "@/public/landing/stir-fry.jpg";
@@ -97,41 +95,33 @@ const paths = [
     alt: "Bowls of curry and rice surrounded by whole spices",
   },
   {
-    title: "Stay in the loop",
-    body: "Event announcements, screening dates, and behind-the-scenes cooking.",
-    cta: "Check out our Instagram",
-    href: instagram.href,
+    title: "Meet the team",
+    body: "The students behind the screenings, cooking demos, and recipes.",
+    cta: "See who we are",
+    href: "#team",
     src: curries,
     alt: "Two pans of vegetable curry beside a bowl of rice",
-    external: true,
   },
 ];
 
 export default function Home() {
   return (
     <main id="main" tabIndex={-1} className="flex-1 w-full overflow-x-clip outline-none">
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-md focus:bg-ccdark-tone focus:px-5 focus:py-2 focus:font-semibold focus:text-ccivory"
-      >
-        Skip to content
-      </a>
-
       <section
         aria-labelledby="hero-title"
-        className="max-w-screen-xl mx-auto px-5 xl:px-10 pt-28 md:pt-40 pb-20 md:pb-28 grid md:grid-cols-[1fr_1fr] items-center gap-10 md:gap-16"
+        className="max-w-screen-xl mx-auto px-5 xl:px-10 pt-32 md:pt-40 pb-20 md:pb-28 flex flex-col gap-10 md:gap-14"
       >
-        <div className="flex flex-col items-start gap-6">
-          <h1 id="hero-title" className="text-4xl md:text-5xl font-bold leading-tight">
-            <span className="block">Heart health,</span> rooted in tradition.
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-x-16 items-end">
+          <h1 id="hero-title" className="text-4xl md:text-5xl font-bold leading-tight text-balance lg:col-span-2 max-w-3xl">
+            Heart health, rooted in tradition.
           </h1>
-          <p className="max-w-xl text-lg md:text-xl leading-relaxed text-ccgarlic-light">
+          <p className="max-w-2xl text-lg md:text-xl leading-relaxed text-ccgarlic-light">
             The Spice and Wellness Society is a UNC Chapel Hill student
             organization committed to cardiovascular health in the South Asian
             community, through education, free heart screenings, and the spices
             and recipes we grew up with.
           </p>
-          <div className="grid w-full lg:flex lg:w-auto gap-3">
+          <div className="grid md:flex md:flex-wrap lg:justify-end gap-3">
             <Link href="/cookbook" className={`${button} bg-cccarrot text-ccivory hover:bg-ccdark-tone`}>
               Explore recipes
               <ArrowRightIcon className="size-4" aria-hidden="true" />
@@ -148,49 +138,38 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div className="relative isolate -order-1 md:order-none">
-          <Mandala className="turn-on-scroll absolute -z-10 -bottom-10 -left-10 w-32 md:w-44 text-ccspice/40" />
-          <Image
-            src={bananaLeafMeal}
-            alt="A South Indian meal served on a banana leaf: rice, papad, sambar, and vegetable sides"
-            priority
-            placeholder="blur"
-            sizes="(min-width: 768px) 50vw, 100vw"
-            className={`${photo} w-full aspect-[3/2] md:aspect-square`}
-          />
-        </div>
+        <Image
+          src={bananaLeafMeal}
+          alt="A South Indian meal served on a banana leaf: rice, papad, sambar, and vegetable sides"
+          loading="eager"
+          fetchPriority="high"
+          placeholder="blur"
+          sizes="(min-width: 1280px) 1200px, 100vw"
+          className={`${photo} w-full aspect-[3/2] md:aspect-[16/9] lg:aspect-[21/9] object-[50%_60%]`}
+        />
       </section>
 
       <section
         id="about"
         aria-labelledby="about-title"
-        className="scroll-mt-24 max-w-screen-xl mx-auto px-5 xl:px-10 pb-20 md:pb-28 grid md:grid-cols-[2fr_3fr] items-center gap-10 md:gap-16"
+        className="scroll-mt-24 max-w-screen-xl mx-auto px-5 xl:px-10 pb-24 md:pb-32 grid md:grid-cols-2 gap-6 md:gap-x-16"
       >
-        <Image
-          src={spices}
-          alt="Cinnamon sticks, star anise, turmeric, and chili powder spread on a wooden board"
-          placeholder="blur"
-          sizes="(min-width: 768px) 40vw, 100vw"
-          className={`reveal ${photo} w-full aspect-[3/2] md:aspect-[4/5]`}
-        />
-        <div className="flex flex-col items-start gap-5">
-          <h2 id="about-title" className={h2}>
-            A student-led home for South Asian wellness at UNC
-          </h2>
-          <div className="flex flex-col gap-4 text-lg leading-relaxed text-ccgarlic-light max-w-prose">
-            <p>
-              We dive into health issues common in the South Asian community,
-              like heart health and diabetes, and help combat them through
-              cultural practices and daily habits.
-            </p>
-            <p>
-              Spices like turmeric, cumin, and ginger have been used for
-              centuries for their medicinal properties. We teach members to
-              cook healthy dishes with them, debunk common food myths, explore
-              practices like Ayurveda, yoga, and meditation, and promote mental
-              health along the way.
-            </p>
-          </div>
+        <h2 id="about-title" className={h2}>
+          A student-led home for South Asian wellness at UNC
+        </h2>
+        <div className="flex flex-col items-start gap-4 text-lg leading-relaxed text-ccgarlic-light">
+          <p>
+            We dive into health issues common in the South Asian community,
+            like heart health and diabetes, and help combat them through
+            cultural practices and daily habits.
+          </p>
+          <p>
+            Spices like turmeric, cumin, and ginger have been used for
+            centuries for their medicinal properties. We teach members to cook
+            healthy dishes with them, debunk common food myths, explore
+            practices like Ayurveda, yoga, and meditation, and promote mental
+            health along the way.
+          </p>
           <Link href="/articles/about-us" className={link}>
             Read more about the club
             <ArrowRightIcon className="size-4" aria-hidden="true" />
@@ -285,9 +264,6 @@ export default function Home() {
               style={{ viewTimelineName: `--step-${i}` }}
               className="step-text min-h-[35vh] md:min-h-[60vh] flex flex-col justify-center gap-3"
             >
-              <span className="text-sm font-semibold tabular-nums text-ccspice">
-                {String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
-              </span>
               <h3 className="text-xl md:text-2xl font-bold">{title}</h3>
               <p className="text-lg leading-relaxed text-ccgarlic-light max-w-md">{body}</p>
             </li>
@@ -303,35 +279,27 @@ export default function Home() {
           <h2 id="explore-title" className={h2}>
             Find your way in
           </h2>
-          <ul className="grid md:grid-cols-3 gap-8">
-            {paths.map(({ title, body, cta, href, src, alt, external }) => (
+          <ul className="grid md:grid-cols-3 md:grid-rows-[auto_auto_1fr_auto] gap-8 md:gap-y-2">
+            {paths.map(({ title, body, cta, href, src, alt }) => (
               <li
                 key={title}
-                className="grid grid-cols-[6rem_1fr] md:grid-cols-1 gap-x-5 gap-y-2 items-start justify-items-start"
+                className="group relative grid grid-cols-[6rem_1fr] md:grid-cols-1 md:grid-rows-subgrid md:row-span-4 gap-x-5 gap-y-2 items-start justify-items-start"
               >
-                <Image
-                  src={src}
-                  alt={alt}
-                  placeholder="blur"
-                  sizes="(min-width: 768px) 30vw, 6rem"
-                  className={`${photo} row-span-3 w-full aspect-square md:aspect-[4/3] md:mb-3`}
-                />
+                <div className="row-span-3 md:row-span-1 w-full overflow-hidden rounded-md md:mb-3">
+                  <Image
+                    src={src}
+                    alt={alt}
+                    placeholder="blur"
+                    sizes="(min-width: 768px) 30vw, 6rem"
+                    className="w-full aspect-square md:aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
+                  />
+                </div>
                 <h3 className="text-xl md:text-2xl font-bold">{title}</h3>
                 <p className="text-ccgarlic-light leading-relaxed">{body}</p>
-                <Link
-                  href={href}
-                  {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-                  className={link}
-                >
+                {/* stretched link: the whole item is clickable, but its name stays the short CTA */}
+                <Link href={href} className={`${link} after:absolute after:inset-0`}>
                   {cta}
-                  {external ? (
-                    <>
-                      <ArrowUpRightIcon className="size-4" aria-hidden="true" />
-                      <span className="sr-only">(opens in a new tab)</span>
-                    </>
-                  ) : (
-                    <ArrowRightIcon className="size-4" aria-hidden="true" />
-                  )}
+                  <ArrowRightIcon className="size-4" aria-hidden="true" />
                 </Link>
               </li>
             ))}

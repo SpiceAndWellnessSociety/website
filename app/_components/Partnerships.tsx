@@ -22,7 +22,7 @@ function Logos() {
       key={p.alt}
       src={p.src}
       alt={p.alt}
-      className="h-10 md:h-12 w-auto shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-[filter,opacity] duration-300"
+      className="h-10 md:h-12 w-auto shrink-0"
     />
   ));
 }
@@ -31,12 +31,12 @@ export default function Partnerships() {
   return (
     <section
       aria-labelledby="partners-title"
-      className="w-full max-w-screen-xl mx-auto py-12 flex flex-col items-center gap-8"
+      className="w-full max-w-screen-xl mx-auto pt-12 pb-20 flex flex-col gap-8"
     >
-      <h2 id="partners-title" className="text-3xl md:text-4xl font-bold">
+      <h2 id="partners-title" className="px-5 xl:px-10 text-3xl md:text-4xl font-bold">
         Partnerships
       </h2>
-      <div className="hidden md:flex motion-reduce:flex flex-wrap justify-center items-center gap-x-16 gap-y-6">
+      <div className="hidden md:flex motion-reduce:flex flex-wrap items-center px-5 xl:px-10 gap-x-16 gap-y-6">
         <Logos />
       </div>
       <div className="md:hidden motion-reduce:hidden w-full overflow-hidden">

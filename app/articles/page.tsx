@@ -66,7 +66,7 @@ export default async function Page() {
   });
 
   return (
-    <main className="flex-1 w-full max-w-4xl mx-auto px-5 pt-32 pb-16">
+    <main id="main" className="flex-1 w-full max-w-4xl mx-auto px-5 pt-32 pb-16">
       <header className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div>
           <h1 className="text-4xl md:text-5xl font-bold">Articles</h1>

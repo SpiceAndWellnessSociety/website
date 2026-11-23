@@ -28,6 +28,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased overflow-[overlay]`}
     >
       <body className="min-h-full flex flex-col bg-ccivory text-ccdark-tone font-sans">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-md focus:bg-ccdark-tone focus:px-5 focus:py-2 focus:font-semibold focus:text-ccivory"
+        >
+          Skip to content
+        </a>
         <Navbar />
         {children}
         <Footer />

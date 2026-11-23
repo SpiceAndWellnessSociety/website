@@ -76,12 +76,6 @@ body {
   }
 }
 
-@keyframes turn {
-  to {
-    rotate: 90deg;
-  }
-}
-
 @keyframes step-text {
   0%,
   100% {
@@ -115,10 +109,6 @@ body {
       animation: reveal linear both;
       animation-timeline: view();
       animation-range: entry 0% cover 25%;
-    }
-    .turn-on-scroll {
-      animation: turn linear both;
-      animation-timeline: scroll();
     }
     .step-text {
       animation: step-text linear both;

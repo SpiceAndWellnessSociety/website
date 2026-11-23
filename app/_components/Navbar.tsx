@@ -7,6 +7,7 @@ export const NavLinks = [
   { label: "Recipes", href: "/cookbook" },
   { label: "Articles", href: "/articles" },
   { label: "About", href: "/articles/about-us" },
+  { label: "Team", href: "/#team" },
 ];
 
 // Heroicons has no brand icons
