@@ -95,16 +95,12 @@ body {
 
 @keyframes step-layer {
   0%,
-  30%,
-  70%,
-  100% {
+  25% {
     opacity: 0;
-    scale: 0.85;
   }
-  42%,
-  58% {
+  40%,
+  100% {
     opacity: 1;
-    scale: 1;
   }
 }
 
@@ -130,9 +126,6 @@ body {
     }
     .step-layer {
       animation: step-layer linear both;
-    }
-    .step-fallback {
-      display: none;
     }
   }
 }

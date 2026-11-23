@@ -1,18 +1,33 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
-import {
-  BookOpenIcon,
-  FireIcon,
-  HeartIcon,
-  LightBulbIcon,
-  MegaphoneIcon,
-  NewspaperIcon,
-  SparklesIcon,
-} from "@heroicons/react/24/outline";
 import Partnerships from "./_components/Partnerships";
 import Team from "./_components/Team";
 import { Socials } from "./_components/Navbar";
 import { Mandala } from "./_components/Ornaments";
+// Photos from Unsplash (free under the Unsplash License), resized and recompressed:
+// banana-leaf-meal: unsplash.com/photos/yCIcDyKm440, Saktheeswaran Govindarajan
+// spices: unsplash.com/photos/uaHShoIDGeo, Marion Botella
+// spice-market: unsplash.com/photos/2TBqJwt6wDY, Jack Sparrow
+// vegetables: unsplash.com/photos/i8WCZpehUIs, Urja Bhatt
+// stir-fry: unsplash.com/photos/APDMfLHZiRA, Kevin McCutcheon
+// dosa: unsplash.com/photos/5oF7d_hPJG4, Paul
+// chai: unsplash.com/photos/gXYwwTQ_tZw, Ajoy Das
+// thali: unsplash.com/photos/4pT9e68P_mU, Zoshua Colah
+// steel-thali: unsplash.com/photos/dncjnYtmWHo, Zoshua Colah
+// curry-bowls: unsplash.com/photos/aq8v45EwCa0, Chetanya Sharma
+// curries: unsplash.com/photos/ZN-TT10kf4o, Andy Hay
+import bananaLeafMeal from "@/public/landing/banana-leaf-meal.jpg";
+import spices from "@/public/landing/spices.jpg";
+import spiceMarket from "@/public/landing/spice-market.jpg";
+import vegetables from "@/public/landing/vegetables.jpg";
+import stirFry from "@/public/landing/stir-fry.jpg";
+import dosa from "@/public/landing/dosa.jpg";
+import chai from "@/public/landing/chai.jpg";
+import thali from "@/public/landing/thali.jpg";
+import steelThali from "@/public/landing/steel-thali.jpg";
+import curryBowls from "@/public/landing/curry-bowls.jpg";
+import curries from "@/public/landing/curries.jpg";
 
 const instagram = Socials[0];
 
@@ -23,37 +38,44 @@ const link = `inline-flex items-center gap-1 font-semibold text-cccarrot underli
 const source =
   "underline underline-offset-2 text-ccivory hover:no-underline rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ccivory";
 const h2 = "text-3xl md:text-4xl font-bold text-balance";
+const photo = "rounded-md object-cover";
 
 const steps = [
   {
     title: "Education & awareness",
     body: "Campaigns that explain why heart disease hits South Asian families harder, and what helps.",
-    Icon: MegaphoneIcon,
+    src: spiceMarket,
+    alt: "Bowls of ground spices heaped high at a market stall",
   },
   {
     title: "Free heart screenings",
     body: "Free screenings so students and community members can know their numbers early.",
-    Icon: HeartIcon,
+    src: vegetables,
+    alt: "Fresh green chilies, ginger, and peppers in bowls at a market",
   },
   {
     title: "Cooking demonstrations",
     body: "Live demos showing how everyday spices and staples make heart-healthy meals.",
-    Icon: FireIcon,
+    src: stirFry,
+    alt: "Hands stirring vegetables in a skillet with a wooden spatula",
   },
   {
     title: "Recipe creation",
     body: "Lighter takes on the dishes we grew up with, written up for our cookbook.",
-    Icon: BookOpenIcon,
+    src: dosa,
+    alt: "A crisp dosa served with sambar and bowls of chutney",
   },
   {
     title: "Wellness & mental well-being",
     body: "Activities that care for the mind as well as the heart, drawing on yoga and meditation.",
-    Icon: SparklesIcon,
+    src: chai,
+    alt: "Chai being poured into small clay cups",
   },
   {
     title: "Myths & traditions",
     body: "Dispelling common food and health myths while preserving the cultural traditions behind them.",
-    Icon: LightBulbIcon,
+    src: thali,
+    alt: "A vegetarian Tamil thali with rice and small bowls of curries",
   },
 ];
 
@@ -63,21 +85,24 @@ const paths = [
     body: "Heart-healthy South Asian recipes from our cooking demos.",
     cta: "Browse recipes",
     href: "/cookbook",
-    Icon: FireIcon,
+    src: steelThali,
+    alt: "A steel thali with rice, dal, papad, and vegetable curries",
   },
   {
     title: "Read & learn",
     body: "Research-backed pieces on diet, culture, and heart health.",
     cta: "Read articles",
     href: "/articles",
-    Icon: NewspaperIcon,
+    src: curryBowls,
+    alt: "Bowls of curry and rice surrounded by whole spices",
   },
   {
     title: "Stay in the loop",
     body: "Event announcements, screening dates, and behind-the-scenes cooking.",
     cta: "Check out our Instagram",
     href: instagram.href,
-    Icon: instagram.Icon,
+    src: curries,
+    alt: "Two pans of vegetable curry beside a bowl of rice",
     external: true,
   },
 ];
@@ -94,7 +119,7 @@ export default function Home() {
 
       <section
         aria-labelledby="hero-title"
-        className="max-w-screen-xl mx-auto px-5 xl:px-10 pt-32 md:pt-40 pb-20 md:pb-28 grid md:grid-cols-[1.3fr_1fr] items-center gap-10"
+        className="max-w-screen-xl mx-auto px-5 xl:px-10 pt-28 md:pt-40 pb-20 md:pb-28 grid md:grid-cols-[1fr_1fr] items-center gap-10 md:gap-16"
       >
         <div className="flex flex-col items-start gap-6">
           <h1 id="hero-title" className="text-4xl md:text-5xl font-bold leading-tight">
@@ -123,30 +148,49 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <Mandala className="turn-on-scroll -order-1 md:order-none w-40 md:w-full max-w-md mx-auto text-ccspice" />
+        <div className="relative isolate -order-1 md:order-none">
+          <Mandala className="turn-on-scroll absolute -z-10 -bottom-10 -left-10 w-32 md:w-44 text-ccspice/40" />
+          <Image
+            src={bananaLeafMeal}
+            alt="A South Indian meal served on a banana leaf: rice, papad, sambar, and vegetable sides"
+            priority
+            placeholder="blur"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className={`${photo} w-full aspect-[3/2] md:aspect-square`}
+          />
+        </div>
       </section>
 
       <section
         id="about"
         aria-labelledby="about-title"
-        className="scroll-mt-24 max-w-screen-xl mx-auto px-5 xl:px-10 pb-20 md:pb-28 grid lg:grid-cols-2 gap-6 lg:gap-16"
+        className="scroll-mt-24 max-w-screen-xl mx-auto px-5 xl:px-10 pb-20 md:pb-28 grid md:grid-cols-[2fr_3fr] items-center gap-10 md:gap-16"
       >
-        <h2 id="about-title" className={h2}>
-          A student-led home for South Asian wellness at UNC
-        </h2>
-        <div className="flex flex-col items-start gap-4 text-lg leading-relaxed text-ccgarlic-light">
-          <p>
-            We dive into health issues common in the South Asian community,
-            like heart health and diabetes, and help combat them through
-            cultural practices and daily habits.
-          </p>
-          <p>
-            Spices like turmeric, cumin, and ginger have been used for
-            centuries for their medicinal properties. We teach members to cook
-            healthy dishes with them, debunk common food myths, explore
-            practices like Ayurveda, yoga, and meditation, and promote mental
-            health along the way.
-          </p>
+        <Image
+          src={spices}
+          alt="Cinnamon sticks, star anise, turmeric, and chili powder spread on a wooden board"
+          placeholder="blur"
+          sizes="(min-width: 768px) 40vw, 100vw"
+          className={`reveal ${photo} w-full aspect-[3/2] md:aspect-[4/5]`}
+        />
+        <div className="flex flex-col items-start gap-5">
+          <h2 id="about-title" className={h2}>
+            A student-led home for South Asian wellness at UNC
+          </h2>
+          <div className="flex flex-col gap-4 text-lg leading-relaxed text-ccgarlic-light max-w-prose">
+            <p>
+              We dive into health issues common in the South Asian community,
+              like heart health and diabetes, and help combat them through
+              cultural practices and daily habits.
+            </p>
+            <p>
+              Spices like turmeric, cumin, and ginger have been used for
+              centuries for their medicinal properties. We teach members to
+              cook healthy dishes with them, debunk common food myths, explore
+              practices like Ayurveda, yoga, and meditation, and promote mental
+              health along the way.
+            </p>
+          </div>
           <Link href="/articles/about-us" className={link}>
             Read more about the club
             <ArrowRightIcon className="size-4" aria-hidden="true" />
@@ -218,21 +262,20 @@ export default function Home() {
         <h2 id="work-title" className={`${h2} md:col-span-2`}>
           What we do
         </h2>
-        {/* pinned visual; each step's view timeline brings its icon forward */}
-        <div className="sticky top-24 md:top-0 md:self-start z-10 md:h-screen flex items-center justify-center py-4 bg-ccivory md:bg-transparent">
-          <div className="relative size-32 md:size-96 grid place-items-center">
-            <Mandala className="absolute inset-0 size-full text-ccspice/50" />
-            <span className="relative grid place-items-center size-14 md:size-32 rounded-full bg-ccivory text-cccarrot">
-              <HeartIcon className="step-fallback size-7 md:size-14" aria-hidden="true" />
-              {steps.map(({ title, Icon }, i) => (
-                <Icon
-                  key={title}
-                  aria-hidden="true"
-                  style={{ animationTimeline: `--step-${i}` }}
-                  className="step-layer absolute size-7 md:size-14"
-                />
-              ))}
-            </span>
+        {/* pinned photo; each step's view timeline fades its photo in over the one before */}
+        <div className="sticky top-24 md:top-28 md:self-start z-10 md:h-[calc(100vh-7rem)] flex items-center py-4 bg-ccivory md:bg-transparent">
+          <div className="relative w-full aspect-[16/9] md:aspect-auto md:h-[min(75vh,40rem)] overflow-hidden rounded-md">
+            {steps.map(({ title, src, alt }, i) => (
+              <Image
+                key={title}
+                src={src}
+                alt={alt}
+                fill
+                sizes="(min-width: 768px) 45vw, 100vw"
+                style={i ? { animationTimeline: `--step-${i}` } : undefined}
+                className={`object-cover ${i ? "step-layer" : ""}`}
+              />
+            ))}
           </div>
         </div>
         <ol className="flex flex-col md:py-[25vh]">
@@ -240,7 +283,7 @@ export default function Home() {
             <li
               key={title}
               style={{ viewTimelineName: `--step-${i}` }}
-              className="step-text min-h-[40vh] md:min-h-[60vh] flex flex-col justify-center gap-3"
+              className="step-text min-h-[35vh] md:min-h-[60vh] flex flex-col justify-center gap-3"
             >
               <span className="text-sm font-semibold tabular-nums text-ccspice">
                 {String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
@@ -253,25 +296,28 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="explore-title" className="relative py-20 md:py-28">
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-henna opacity-25" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-henna opacity-20" />
         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-4 bg-vine" />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-4 bg-vine" />
         <div className="reveal max-w-screen-xl mx-auto px-5 xl:px-10 flex flex-col gap-12">
-          <h2 id="explore-title" className={`${h2} text-center`}>
+          <h2 id="explore-title" className={h2}>
             Find your way in
           </h2>
-          <ul className="grid md:grid-cols-3 gap-10 md:gap-0 md:divide-x divide-ccginger/50">
-            {paths.map(({ title, body, cta, href, Icon, external }) => (
+          <ul className="grid md:grid-cols-3 gap-8">
+            {paths.map(({ title, body, cta, href, src, alt, external }) => (
               <li
                 key={title}
-                className="grid grid-cols-[4rem_1fr] gap-x-5 gap-y-2 justify-items-start md:flex md:flex-col md:items-center md:text-center md:gap-3 md:px-10"
+                className="grid grid-cols-[6rem_1fr] md:grid-cols-1 gap-x-5 gap-y-2 items-start justify-items-start"
               >
-                <span className="row-span-3 relative grid place-items-center size-16 md:size-20 text-cccarrot">
-                  <Mandala className="absolute inset-0 size-full text-ccspice/60" />
-                  <Icon className="relative size-7" aria-hidden="true" />
-                </span>
+                <Image
+                  src={src}
+                  alt={alt}
+                  placeholder="blur"
+                  sizes="(min-width: 768px) 30vw, 6rem"
+                  className={`${photo} row-span-3 w-full aspect-square md:aspect-[4/3] md:mb-3`}
+                />
                 <h3 className="text-xl md:text-2xl font-bold">{title}</h3>
-                <p className="text-ccgarlic-light leading-relaxed max-w-xs">{body}</p>
+                <p className="text-ccgarlic-light leading-relaxed">{body}</p>
                 <Link
                   href={href}
                   {...(external && { target: "_blank", rel: "noopener noreferrer" })}
