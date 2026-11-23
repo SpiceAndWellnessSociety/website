@@ -30,6 +30,7 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-cormorant);
 
   --animate-marquee: marquee 45s linear infinite;
   @keyframes marquee {
@@ -50,4 +51,71 @@ body {
   /* background: var(--background); */
   /* color: var(--foreground); */
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Repeating flat ornaments as CSS backgrounds so pages don't ship SVG markup for them */
+@utility bg-vine {
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='16' fill='none' stroke='%23967c5a' stroke-width='1.25'><path d='M0 8h40'/><path d='M13 8c1-5 6-7 10-6-1 4-5 6-10 6z' fill='%23a0a248'/><path d='M27 8c-1 5-6 7-10 6 1-4 5-6 10-6z' fill='%23a0a248'/><circle cx='4' cy='8' r='2' fill='%23f3f0e7'/></svg>")
+    repeat-x center / 40px 16px;
+}
+
+@utility bg-toran {
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='22' stroke='%23ba603e' stroke-width='1.25'><path d='M0 0h48v4c-8 0-12 8-24 8S8 4 0 4z' fill='%233a3227' stroke='none'/><path d='M0 8c8 0 12 8 24 8s16-8 24-8' fill='none'/><circle cx='24' cy='19.5' r='1.75' fill='%23f3f0e7'/></svg>")
+    repeat-x top / 48px 22px;
+}
+
+@utility bg-henna {
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96' fill='none' stroke='%23967c5a' stroke-width='1.25'><path d='M52 84c10-12 22-18 36-18M62 76c0-7 5-11 11-11 0 7-5 11-11 11zM74 70c3-6 9-8 14-6-3 6-9 8-14 6z'/><g transform='translate(24 24)'><circle r='3'/><path id='p' d='M0-5c4-3 4-9 0-12-4 3-4 9 0 12z'/><use href='%23p' transform='rotate(60)'/><use href='%23p' transform='rotate(120)'/><use href='%23p' transform='rotate(180)'/><use href='%23p' transform='rotate(240)'/><use href='%23p' transform='rotate(300)'/></g><circle cx='60' cy='20' r='2'/><circle cx='68' cy='30' r='2'/><circle cx='10' cy='62' r='2'/><circle cx='20' cy='74' r='2'/><circle cx='88' cy='40' r='2'/></svg>")
+    repeat center / 96px 96px;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 2rem;
+  }
+}
+
+@keyframes step-text {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  40%,
+  60% {
+    opacity: 1;
+  }
+}
+
+@keyframes step-layer {
+  0%,
+  25% {
+    opacity: 0;
+  }
+  40%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* All motion is tied to scroll, and only where the browser supports it and the reader allows it */
+.step-layer {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 25%;
+    }
+    .step-text {
+      animation: step-text linear both;
+      animation-timeline: view();
+    }
+    .step-layer {
+      animation: step-layer linear both;
+    }
+  }
 }

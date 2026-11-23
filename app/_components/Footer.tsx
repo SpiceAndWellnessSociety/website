@@ -6,7 +6,8 @@ export default async function Footer() {
   "use cache";
   return (
     <footer className="mt-auto w-full max-w-screen-xl mx-auto px-2.5 xl:px-10 py-8">
-      <div className="flex flex-col sm:flex-row gap-4 justify-between items-center sm:items-start border-t border-ccgarlic-dark pt-6">
+      <div aria-hidden="true" className="h-4 bg-vine mb-6" />
+      <div className="flex flex-col sm:flex-row gap-4 justify-between items-center sm:items-start">
         <div className="flex flex-col items-center sm:items-start gap-1 text-center sm:text-start">
           <p className="font-bold md:text-lg leading-5">SAWS</p>
           <span className="text-sm md:text-base leading-4">
